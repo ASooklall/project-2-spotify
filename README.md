@@ -34,13 +34,13 @@ o	Interactive Concept Map / Network
 o	Sunburst chart that shows top songs in genre per year
 o	Searchable data chart
 •	HTML to load the Javascript into a template that the flask app will pull from and load onto routes.
-Data sources:
-•	Wikipedia
-o	Scraping pages for artist bio and pictures
-•	Spotify
-o	Scraping data for album pictures and song lyrics?
-•	Kaggle Datasets
-o	https://www.kaggle.com/nadintamer/top-tracks-of-2017
-o	https://www.kaggle.com/nadintamer/top-spotify-tracks-of-2018
-o	https://www.kaggle.com/leonardopena/top50spotify2019
+### Data sources:
+* Wikipedia
+* * Scraping pages for artist bio and pictures
+* Spotify
+* * Scraping data for album pictures and song lyrics?
+* Kaggle Datasets
+* * https://www.kaggle.com/nadintamer/top-tracks-of-2017
+* * https://www.kaggle.com/nadintamer/top-spotify-tracks-of-2018
+* * https://www.kaggle.com/leonardopena/top50spotify2019
 
