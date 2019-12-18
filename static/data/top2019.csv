@@ -1,0 +1,51 @@
+,name,artists,genre,tempo,energy_raw,danceability_raw,loudness,liveness-raw,valence_raw,Length.,acousticness_raw,speechiness_raw,Popularity,duration_ms,energy,danceability,liveness,valence,acousticness,speechiness
+1,Se・Eorita,Shawn Mendes,canadian pop,117,55,76,-6,8,75,191,4,3,79,191000,0.55,0.76,0.08,0.75,0.04,0.03
+2,China,Anuel AA,reggaeton flow,105,81,79,-4,8,61,302,8,9,92,302000,0.81,0.79,0.08,0.61,0.08,0.09
+3,boyfriend (with Social House),Ariana Grande,dance pop,190,80,40,-4,16,70,186,12,46,85,186000,0.8,0.4,0.16,0.7,0.12,0.46
+4,Beautiful People (feat. Khalid),Ed Sheeran,pop,93,65,64,-8,8,55,198,12,19,86,198000,0.65,0.64,0.08,0.55,0.12,0.19
+5,Goodbyes (Feat. Young Thug),Post Malone,dfw rap,150,65,58,-4,11,18,175,45,7,94,175000,0.65,0.58,0.11,0.18,0.45,0.07
+6,I Don't Care (with Justin Bieber),Ed Sheeran,pop,102,68,80,-5,9,84,220,9,4,84,220000,0.68,0.8,0.09,0.84,0.09,0.04
+7,Ransom,Lil Tecca,trap music,180,64,75,-6,7,23,131,2,29,92,131000,0.64,0.75,0.07,0.23,0.02,0.29
+8,How Do You Sleep?,Sam Smith,pop,111,68,48,-5,8,35,202,15,9,90,202000,0.68,0.48,0.08,0.35,0.15,0.09
+9,Old Town Road - Remix,Lil Nas X,country rap,136,62,88,-6,11,64,157,5,10,87,157000,0.62,0.88,0.11,0.64,0.05,0.1
+10,bad guy,Billie Eilish,electropop,135,43,70,-11,10,56,194,33,38,95,194000,0.43,0.7,0.1,0.56,0.33,0.38
+11,Callaita,Bad Bunny,reggaeton,176,62,61,-5,24,24,251,60,31,93,251000,0.62,0.61,0.24,0.24,0.6,0.31
+12,Loco Contigo (feat. J. Balvin & Tyga),DJ Snake,dance pop,96,71,82,-4,15,38,185,28,7,86,185000,0.71,0.82,0.15,0.38,0.28,0.07
+13,Someone You Loved,Lewis Capaldi,pop,110,41,50,-6,11,45,182,75,3,88,182000,0.41,0.5,0.11,0.45,0.75,0.03
+14,Otro Trago - Remix,Sech,panamanian pop,176,79,73,-2,6,76,288,7,20,87,288000,0.79,0.73,0.06,0.76,0.07,0.2
+15,Money In The Grave (Drake ft. Rick Ross),Drake,canadian hip hop,101,50,83,-4,12,10,205,10,5,92,205000,0.5,0.83,0.12,0.1,0.1,0.05
+16,No Guidance (feat. Drake),Chris Brown,dance pop,93,45,70,-7,16,14,261,12,15,82,261000,0.45,0.7,0.16,0.14,0.12,0.15
+17,LA CANCIﾓN,J Balvin,latin,176,65,75,-6,11,43,243,15,32,90,243000,0.65,0.75,0.11,0.43,0.15,0.32
+18,Sunflower - Spider-Man: Into the Spider-Verse,Post Malone,dfw rap,90,48,76,-6,7,91,158,56,5,91,158000,0.48,0.76,0.07,0.91,0.56,0.05
+19,Lalala,Y2K,canadian hip hop,130,39,84,-8,14,50,161,18,8,88,161000,0.39,0.84,0.14,0.5,0.18,0.08
+20,Truth Hurts,Lizzo,escape room,158,62,72,-3,12,41,173,11,11,91,173000,0.62,0.72,0.12,0.41,0.11,0.11
+21,Piece Of Your Heart,MEDUZA,pop house,124,74,68,-7,7,63,153,4,3,91,153000,0.74,0.68,0.07,0.63,0.04,0.03
+22,Panini,Lil Nas X,country rap,154,59,70,-6,12,48,115,34,8,91,115000,0.59,0.7,0.12,0.48,0.34,0.08
+23,No Me Conoce - Remix,Jhay Cortez,reggaeton flow,92,79,81,-4,9,58,309,14,7,83,309000,0.79,0.81,0.09,0.58,0.14,0.07
+24,Soltera - Remix,Lunay,latin,92,78,80,-4,44,80,266,36,4,91,266000,0.78,0.8,0.44,0.8,0.36,0.04
+25,bad guy (with Justin Bieber),Billie Eilish,electropop,135,45,67,-11,12,68,195,25,30,89,195000,0.45,0.67,0.12,0.68,0.25,0.3
+26,If I Can't Have You,Shawn Mendes,canadian pop,124,82,69,-4,13,87,191,49,6,70,191000,0.82,0.69,0.13,0.87,0.49,0.06
+27,Dance Monkey,Tones and I,australian pop,98,59,82,-6,18,54,210,69,10,83,210000,0.59,0.82,0.18,0.54,0.69,0.1
+28,It's You,Ali Gatie,canadian hip hop,96,46,73,-7,19,40,213,37,3,89,213000,0.46,0.73,0.19,0.4,0.37,0.03
+29,Con Calma,Daddy Yankee,latin,94,86,74,-3,6,66,193,11,6,91,193000,0.86,0.74,0.06,0.66,0.11,0.06
+30,QUE PRETENDES,J Balvin,latin,93,79,64,-4,36,94,222,3,25,89,222000,0.79,0.64,0.36,0.94,0.03,0.25
+31,Takeaway,The Chainsmokers,edm,85,51,29,-8,10,36,210,12,4,84,210000,0.51,0.29,0.1,0.36,0.12,0.04
+32,7 rings,Ariana Grande,dance pop,140,32,78,-11,9,33,179,59,33,89,179000,0.32,0.78,0.09,0.33,0.59,0.33
+33,11:00 PM,Maluma,reggaeton,96,71,78,-5,9,68,176,22,28,89,176000,0.71,0.78,0.09,0.68,0.22,0.28
+34,The London (feat. J. Cole & Travis Scott),Young Thug,atl hip hop,98,59,80,-7,13,18,200,2,15,89,200000,0.59,0.8,0.13,0.18,0.02,0.15
+35,Never Really Over,Katy Perry,dance pop,100,88,77,-5,32,39,224,19,6,89,224000,0.88,0.77,0.32,0.39,0.19,0.06
+36,Summer Days (feat. Macklemore & Patrick Stump of Fall Out Boy),Martin Garrix,big room,114,72,66,-7,14,32,164,18,6,89,164000,0.72,0.66,0.14,0.32,0.18,0.06
+37,Otro Trago,Sech,panamanian pop,176,70,75,-5,11,62,226,14,34,91,226000,0.7,0.75,0.11,0.62,0.14,0.34
+38,Antisocial (with Travis Scott),Ed Sheeran,pop,152,82,72,-5,36,91,162,13,5,87,162000,0.82,0.72,0.36,0.91,0.13,0.05
+39,Sucker,Jonas Brothers,boy band,138,73,84,-5,11,95,181,4,6,80,181000,0.73,0.84,0.11,0.95,0.04,0.06
+40,"fuck, i'm lonely (with Anne-Marie) - from ・E13 Reasons Why: Season 3・E",Lauv,dance pop,95,56,81,-6,6,68,199,48,7,78,199000,0.56,0.81,0.06,0.68,0.48,0.07
+41,Higher Love,Kygo,edm,104,68,69,-7,10,40,228,2,3,88,228000,0.68,0.69,0.1,0.4,0.02,0.03
+42,You Need To Calm Down,Taylor Swift,dance pop,85,68,77,-6,7,73,171,1,5,90,171000,0.68,0.77,0.07,0.73,0.01,0.05
+43,Shallow,Lady Gaga,dance pop,96,39,57,-6,23,32,216,37,3,87,216000,0.39,0.57,0.23,0.32,0.37,0.03
+44,Talk,Khalid,pop,136,40,90,-9,6,35,198,5,13,84,198000,0.4,0.9,0.06,0.35,0.05,0.13
+45,Con Altura,ROSALﾍA,r&b en espanol,98,69,88,-4,5,75,162,39,12,88,162000,0.69,0.88,0.05,0.75,0.39,0.12
+46,One Thing Right,Marshmello,brostep,88,62,66,-2,58,44,182,7,5,88,182000,0.62,0.66,0.58,0.44,0.07,0.05
+47,Te Robar・E,Nicky Jam,latin,176,75,67,-4,8,80,202,24,6,88,202000,0.75,0.67,0.08,0.8,0.24,0.06
+48,Happier,Marshmello,brostep,100,79,69,-3,17,67,214,19,5,88,214000,0.79,0.69,0.17,0.67,0.19,0.05
+49,Call You Mine,The Chainsmokers,edm,104,70,59,-6,41,50,218,23,3,88,218000,0.7,0.59,0.41,0.5,0.23,0.03
+50,Cross Me (feat. Chance the Rapper & PnB Rock),Ed Sheeran,pop,95,79,75,-6,7,61,206,21,12,82,206000,0.79,0.75,0.07,0.61,0.21,0.12
