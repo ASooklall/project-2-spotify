@@ -15,9 +15,9 @@ from sqlalchemy import create_engine
 ###### Load CSV File(s) #######
 ###############################
 
-
-
-
+top2017_df = pd.read_csv('assets/data/top2017.csv')
+top2018_df = pd.read_csv('assets/data/top2018.csv')
+top2019_df = pd.read_csv('assets/data/top2019.csv')
 
 ###############################
 ###### Transform CSV(s) #######
