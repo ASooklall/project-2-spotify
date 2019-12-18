@@ -43,3 +43,9 @@ o	Searchable data chart
 * * https://www.kaggle.com/nadintamer/top-tracks-of-2017
 * * https://www.kaggle.com/nadintamer/top-spotify-tracks-of-2018
 * * https://www.kaggle.com/leonardopena/top50spotify2019
+<<<<<<< HEAD
+* Web Playback SDK
+* * https://developer.spotify.com/documentation/web-playback-sdk/
+
+=======
+>>>>>>> d41f6a94dce046836cd7f79ebf13499f98345b98
