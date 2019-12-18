@@ -26,7 +26,7 @@ app = Flask(__name__)
 ###### Initiate Database ######
 ###############################
 
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/spotifyviz.sqlite"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///db/spotify_db.sqlite"
 db = SQLAlchemy(app)
 
 # reflect an existing database into a new model
