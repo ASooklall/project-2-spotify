@@ -1,5 +1,5 @@
-,name,artists,genre,tempo,energy_raw,danceability_raw,loudness,liveness-raw,valence_raw,Length.,acousticness_raw,speechiness_raw,Popularity,duration_ms,energy,danceability,liveness,valence,acousticness,speechiness
-1,SeÅEEorita,Shawn Mendes,canadian pop,117,55,76,-6,8,75,191,4,3,79,191000,0.55,0.76,0.08,0.75,0.04,0.03
+Ôªø,name,artists,genre,tempo,energy_raw,danceability_raw,loudness,liveness-raw,valence_raw,Length.,acousticness_raw,speechiness_raw,Popularity,duration_ms,energy,danceability,liveness,valence,acousticness,speechiness
+1,Se„ÉªEEorita,Shawn Mendes,canadian pop,117,55,76,-6,8,75,191,4,3,79,191000,0.55,0.76,0.08,0.75,0.04,0.03
 2,China,Anuel AA,reggaeton flow,105,81,79,-4,8,61,302,8,9,92,302000,0.81,0.79,0.08,0.61,0.08,0.09
 3,boyfriend (with Social House),Ariana Grande,dance pop,190,80,40,-4,16,70,186,12,46,85,186000,0.8,0.4,0.16,0.7,0.12,0.46
 4,Beautiful People (feat. Khalid),Ed Sheeran,pop,93,65,64,-8,8,55,198,12,19,86,198000,0.65,0.64,0.08,0.55,0.12,0.19
@@ -15,7 +15,7 @@
 14,Otro Trago - Remix,Sech,panamanian pop,176,79,73,-2,6,76,288,7,20,87,288000,0.79,0.73,0.06,0.76,0.07,0.2
 15,Money In The Grave (Drake ft. Rick Ross),Drake,canadian hip hop,101,50,83,-4,12,10,205,10,5,92,205000,0.5,0.83,0.12,0.1,0.1,0.05
 16,No Guidance (feat. Drake),Chris Brown,dance pop,93,45,70,-7,16,14,261,12,15,82,261000,0.45,0.7,0.16,0.14,0.12,0.15
-17,LA CANCI”N,J Balvin,latin,176,65,75,-6,11,43,243,15,32,90,243000,0.65,0.75,0.11,0.43,0.15,0.32
+17,LA CANCIÔæìN,J Balvin,latin,176,65,75,-6,11,43,243,15,32,90,243000,0.65,0.75,0.11,0.43,0.15,0.32
 18,Sunflower - Spider-Man: Into the Spider-Verse,Post Malone,dfw rap,90,48,76,-6,7,91,158,56,5,91,158000,0.48,0.76,0.07,0.91,0.56,0.05
 19,Lalala,Y2K,canadian hip hop,130,39,84,-8,14,50,161,18,8,88,161000,0.39,0.84,0.14,0.5,0.18,0.08
 20,Truth Hurts,Lizzo,escape room,158,62,72,-3,12,41,173,11,11,91,173000,0.62,0.72,0.12,0.41,0.11,0.11
@@ -38,14 +38,14 @@
 37,Otro Trago,Sech,panamanian pop,176,70,75,-5,11,62,226,14,34,91,226000,0.7,0.75,0.11,0.62,0.14,0.34
 38,Antisocial (with Travis Scott),Ed Sheeran,pop,152,82,72,-5,36,91,162,13,5,87,162000,0.82,0.72,0.36,0.91,0.13,0.05
 39,Sucker,Jonas Brothers,boy band,138,73,84,-5,11,95,181,4,6,80,181000,0.73,0.84,0.11,0.95,0.04,0.06
-40,"fuck, i'm lonely (with Anne-Marie) - from ÅEE13 Reasons Why: Season 3ÅEE",Lauv,dance pop,95,56,81,-6,6,68,199,48,7,78,199000,0.56,0.81,0.06,0.68,0.48,0.07
+40,"fuck, i'm lonely (with Anne-Marie) - from „ÉªEE13 Reasons Why: Season 3„ÉªEE",Lauv,dance pop,95,56,81,-6,6,68,199,48,7,78,199000,0.56,0.81,0.06,0.68,0.48,0.07
 41,Higher Love,Kygo,edm,104,68,69,-7,10,40,228,2,3,88,228000,0.68,0.69,0.1,0.4,0.02,0.03
 42,You Need To Calm Down,Taylor Swift,dance pop,85,68,77,-6,7,73,171,1,5,90,171000,0.68,0.77,0.07,0.73,0.01,0.05
 43,Shallow,Lady Gaga,dance pop,96,39,57,-6,23,32,216,37,3,87,216000,0.39,0.57,0.23,0.32,0.37,0.03
 44,Talk,Khalid,pop,136,40,90,-9,6,35,198,5,13,84,198000,0.4,0.9,0.06,0.35,0.05,0.13
-45,Con Altura,ROSALÕA,r&b en espanol,98,69,88,-4,5,75,162,39,12,88,162000,0.69,0.88,0.05,0.75,0.39,0.12
+45,Con Altura,ROSALÔæçA,r&b en espanol,98,69,88,-4,5,75,162,39,12,88,162000,0.69,0.88,0.05,0.75,0.39,0.12
 46,One Thing Right,Marshmello,brostep,88,62,66,-2,58,44,182,7,5,88,182000,0.62,0.66,0.58,0.44,0.07,0.05
-47,Te RobarÅEE,Nicky Jam,latin,176,75,67,-4,8,80,202,24,6,88,202000,0.75,0.67,0.08,0.8,0.24,0.06
+47,Te Robar„ÉªEE,Nicky Jam,latin,176,75,67,-4,8,80,202,24,6,88,202000,0.75,0.67,0.08,0.8,0.24,0.06
 48,Happier,Marshmello,brostep,100,79,69,-3,17,67,214,19,5,88,214000,0.79,0.69,0.17,0.67,0.19,0.05
 49,Call You Mine,The Chainsmokers,edm,104,70,59,-6,41,50,218,23,3,88,218000,0.7,0.59,0.41,0.5,0.23,0.03
 50,Cross Me (feat. Chance the Rapper & PnB Rock),Ed Sheeran,pop,95,79,75,-6,7,61,206,21,12,82,206000,0.79,0.75,0.07,0.61,0.21,0.12
