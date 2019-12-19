@@ -21,9 +21,7 @@ top2018_df = pd.read_csv('static/data/top2018.csv')
 
 top_df = pd.concat([top2017_df, top2018_df], ignore_index=True)
 
-print_df = top_df.head()
-
-print(print_df)
+# print(top_df.head())
 
 ###############################
 ###### Transform CSV(s) #######
@@ -43,10 +41,13 @@ print(print_df)
 # conn.commit()
 # conn.close()
 
+from sqlalchemy import create_engine
+engine = create_engine('sqlite://', echo=False)
 
 
-
-
+top_df.to_sql('spotify', con=engine, if_exists='replace')
+test = engine.execute("SELECT * FROM spotify LIMIT 1").fetchall()
+print (test)
 
 
 
