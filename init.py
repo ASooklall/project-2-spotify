@@ -42,10 +42,11 @@ top_df = pd.concat([top2017_df, top2018_df], ignore_index=True)
 # conn.close()
 
 from sqlalchemy import create_engine
-engine = create_engine('sqlite://', echo=False)
+engine = create_engine('sqlite:///static/db/spotify_db.sqlite', echo=False)
+# conn = dbConn( )
 
 
-top_df.to_sql('spotify', con=engine, if_exists='replace')
+top_df.to_sql('spotify', con=engine, if_exists='replace', index=True)
 test = engine.execute("SELECT * FROM spotify LIMIT 1").fetchall()
 print (test)
 
