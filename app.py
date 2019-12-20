@@ -69,7 +69,7 @@ def top_data():
     column_names = ["index",
                     "id",
                     "name",
-                    "artists",
+                    "artist",
                     "danceability",
                     "energy",
                     "key",
@@ -90,7 +90,7 @@ def top_data():
 
     for row in data:
         temp = {}
-        for i in range(0, len(row)+1):
+        for i in range(0, len(row)):
             temp[column_names[i]] = row[i]
         songs.append(temp)
     
