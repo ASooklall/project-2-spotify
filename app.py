@@ -66,25 +66,37 @@ def index():
 def top_data():
     global engine
     songs = []
-    column_names = ["ID",
-                    "Name",
-                    "Artists",
-                    "Danceability",
-                    ]
+    column_names = ["index",
+                    "id",
+                    "name",
+                    "artists",
+                    "danceability",
+                    "energy",
+                    "key",
+                    "loudness",
+                    "mode",
+                    "speechiness",
+                    "acousticness",
+                    "instrumentalness",
+                    "liveness",
+                    "valence",
+                    "tempo",
+                    "duration_ms",
+                    "time_signature",
+                    "genre",
+                    "year"]
     # with engine.connect() as con:
     data = engine.execute('SELECT * FROM spotify')
 
     for row in data:
         temp = {}
-        i = 1
-        for i < len(row):
-            temp.append(column_names[i]:row[i])
-            i++
+        for i in range(0, len(row)+1):
+            temp[column_names[i]] = row[i]
         songs.append(temp)
     
     # engine.close()
     # data = {}
-    return jsonify(list(songs))
+    return jsonify(songs)
 
 
 ###############################
