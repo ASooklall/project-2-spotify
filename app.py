@@ -33,24 +33,14 @@ app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///static/db/spotify_db.sqlite"
 db = SQLAlchemy(app)
 
-# reflect an existing database into a new model
 Base = automap_base()
-# reflect the tables
 Base.prepare(db.engine, reflect=True)
-
-
 engine = db.engine
 
 
-# engine = create_engine('sqlite:///static/db/spotify_db.sqlite')
-# engine = db.engine
-# metadata.create_all(engine)
-
 # Save references to each table
 inspector = inspect(db.engine)
-print(inspector.get_table_names())
-# print(inspector.get_columns("spotify"))
-# Spotify = Base.classes.spotify
+# print(inspector.get_table_names())
 
 
 ###############################
@@ -69,7 +59,7 @@ def top_data():
     column_names = ["index",
                     "id",
                     "name",
-                    "artists",
+                    "artist",
                     "danceability",
                     "energy",
                     "key",
@@ -90,7 +80,7 @@ def top_data():
 
     for row in data:
         temp = {}
-        for i in range(0, len(row)+1):
+        for i in range(0, len(row)):
             temp[column_names[i]] = row[i]
         songs.append(temp)
     
