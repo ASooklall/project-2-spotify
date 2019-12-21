@@ -5,3 +5,8 @@ body {
 .container {
     background-color: #fff4ce;
 }
+
+#button-container {
+    position: relative;
+    left: 35%;
+}
