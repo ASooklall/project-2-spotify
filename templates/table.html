@@ -13,24 +13,24 @@
 <body>
     <div class="test">
 
-    </div>>
+    </div>
   <div class="wrapper">
     <nav class="navbar navbar-default">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="index.html">UFO Sightings
+          <!-- <a class="navbar-brand" href="index.html">UFO Sightings
             <img class="nav-ufo" src="static/images/ufo.svg">
-          </a>
+          </a> -->
         </div>
       </div>
     </nav>
     <div class="hero text-center">
-      <h1>UFO Sightings</h1>
-      <p>The Truth is Out There</p>
+      <h1>Spotify Song Visualization</h1>
+      <p>Table Data</p>
     </div>
-    <div class="container">
+    <!-- <div class="container"> -->
       <div class="row margin-top-50">
-        <div class="col-md-2">
+        <div class="col-md-12">
           <aside class="filters">
             <div class="panel panel-default">
               <div class="panel-heading">Filter Search</div>
@@ -39,24 +39,20 @@
                   <div class="form-group">
                     <ul class="list-group" id="filters">
                       <li class="filter list-group-item">
-                        <label for="date">Enter a Date</label>
-                        <input class="form-control" id="datetime" type="text" placeholder="1/11/2011">
+                        <label for="song">Song Name</label>
+                        <input class="form-control" id="songs" type="text" placeholder="Song Name">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="city">Enter a City</label>
-                        <input class="form-control" id="cities" type="text" placeholder="City">
+                        <label for="artist">Artist Name</label>
+                        <input class="form-control" id="artists" type="text" placeholder="Artist Name">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="state">Enter a State</label>
-                        <input class="form-control" id="states" type="text" placeholder="State">
+                        <label for="genre">Genre</label>
+                        <input class="form-control" id="genres" type="text" placeholder="Genre">
                       </li>
                       <li class="filter list-group-item">
-                        <label for="country">Enter a Country</label>
-                        <input class="form-control" id="countries" type="text" placeholder="Country">
-                      </li>
-                      <li class="filter list-group-item">
-                        <label for="shape">Enter a Shape</label>
-                        <input class="form-control" id="shapes" type="text" placeholder="Shape">
+                        <label for="year">Year</label>
+                        <input class="form-control" id="years" type="text" placeholder="201X">
                       </li>
                     </ul>
                   </div>
@@ -66,18 +62,30 @@
             </div>
           </aside>
         </div>
-        <div class="col-md-10">
+        <div class="col-md-12">
           <div id="table-area" class="">
             <table id="ufo-table" class="table table-striped">
               <thead>
                 <tr>
-                  <th class="table-head">Date</th>
-                  <th class="table-head">City</th>
-                  <th class="table-head">State</th>
-                  <th class="table-head">Country</th>
-                  <th class="table-head">Shape</th>
-                  <th class="table-head">Duration</th>
-                  <th class="table-head">Comments</th>
+                  <th class="table-head">Acousticness</th>
+                  <th class="table-head">Artists</th>
+                  <th class="table-head">Danceability</th>
+                  <th class="table-head">Duration (ms)</th>
+                  <th class="table-head">Energy</th>
+                  <th class="table-head">Genre</th>
+                  <th class="table-head">ID</th>
+                  <th class="table-head">Index</th>
+                  <th class="table-head">Instrumentalness</th>
+                  <th class="table-head">Key</th>
+                  <th class="table-head">Liveness</th>
+                  <th class="table-head">Loudness</th>
+                  <th class="table-head">Mode</th>
+                  <th class="table-head">Name</th>
+                  <th class="table-head">Speechiness</th>
+                  <th class="table-head">Tempo</th>
+                  <th class="table-head">Time Signature</th>
+                  <th class="table-head">Valence</th>
+                  <th class="table-head">Year</th>
                 </tr>
               </thead>
               <tbody></tbody>
@@ -85,9 +93,9 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
     <footer class="footer">
-      <span class="bottom">UFO Sightings</span>
+      <span class="bottom">Spotify</span>
     </footer>
   </div>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
