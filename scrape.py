@@ -165,6 +165,7 @@ def run_scrape():
         # initialize genre column
         genres = []
 
+        # loop through artists list
         for person in artists:
             # create spotipy object
             sp = spotipy.Spotify(auth=token)
@@ -176,19 +177,25 @@ def run_scrape():
                 # search artist top tracks
                 genre = sp.artist(artist_id)['genres']
                 genres.append(genre)
-            except IndexError:
+            except IndexError:  # artist name is incorrect
+                # grab index of row
                 i = dataframe.index[dataframe['artists'] == person]
+                # grab song title
                 song_df = dataframe.loc[i, 'name']
                 song_list = song_df.values
                 song = song_list[0]
+                # search by track instead
                 sp = spotipy.Spotify(auth=token)
                 result = sp.search(q=song, type='track')
+                # grab correct artist
                 artist = result['tracks']['items'][0]['artists'][0]['name']
                 sp = spotipy.Spotify(auth=token)
                 result = sp.search(q=artist, type='artist')
+                # grab genre associated with correct artist
                 genre = result['artists']['items'][0]['genres']
                 genres.append(genre)
 
+        # add genre to dataframe
         dataframe['genre'] = genres
 
         return dataframe
