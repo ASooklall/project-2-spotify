@@ -59,7 +59,7 @@ function init() {
             Object.entries(song).forEach(([key, value]) => {
                 var cell = row.append("td");
                 if (typeof value == 'number'){
-                    cell.text(value.toFixed(5))
+                    cell.text(value.toFixed(3))
                 }
                 else {
                     cell.text(value);
