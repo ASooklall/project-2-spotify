@@ -4,6 +4,7 @@
 import spotipy
 import spotipy.util as util
 import pandas as pd
+from config import username, SPOTIPY_CLIENT_ID, SPOTIPY_CLIENT_SECRET, SPOTIPY_REDIRECT_URI, scope
 
 
 def run_scrape():
@@ -70,14 +71,6 @@ def run_scrape():
     ############################################
     ### Spotipy Scrape for results obeject  ###
     ##########################################
-
-    # Spotipy config
-    SPOTIPY_CLIENT_ID='7655188a18144343b07e44965cc38310'
-    SPOTIPY_CLIENT_SECRET='2bec9b47853e4ea3a419418a211ec45d'
-    SPOTIPY_REDIRECT_URI='https://google.com/'
-    scope = 'user-library-read'
-    # Grab username
-    username = "1298997744"
 
     # create token for each scrape
     token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
