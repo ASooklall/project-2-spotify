@@ -104,6 +104,11 @@ def table():
     #"""Return the table page."""
     return render_template("table.html")
 
+@app.route("/aboutus")
+def credits():
+    #"""Return Acknowledgements Page.""""
+    return render_template("aboutus.html")
+
 
 ###############################
 #### Run Flask Application ####
