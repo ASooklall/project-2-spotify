@@ -76,63 +76,58 @@ init()
 ///////// Filter Function /////////
 ///////////////////////////////////
 
+
+
+
 function handleSubmit() {
+    d3.event.preventDefault();
+
+    // Select Input Values From Form
+    var inputSong = d3.select("#songs").property("value");
+    var inputArtist = d3.select("#artists").property("value");
+    var inputGenre = d3.select("#genres").property("value");
+    var inputYear = parseInt(d3.select("#years").property("value")); // Convert to int to match the value type in the database
+
+    // Clear Table Body
+    tbody.html("")
+
+    // Filter
     d3.json(dataURL, data => {
-        console.log(data)
-        // Prevent the page from refreshing
-        d3.event.preventDefault();
-
-        // Select the new input values from the form
-        var inputSong = d3.select("#songs").property("value");
-        var inputArtist = d3.select("#artists").property("value");
-        var inputGenre = d3.select("#genres").property("value");
-        var inputYear = d3.select("#years").property("value");
-
-        // clear the table to prepare for new data filter
-        tbody.html("")
-
         console.log(data.filter(data => data.name === 'Shape of You'))
-        console.log(data.filter(data => data.name === inputSong))
 
-        // Begin filters 
-            // filters by each input which may or may not have values
+        // Checker For Filter
+        // CHecker For Song
+        if (inputSong){
+        var filteredSong = data.filter(data => data.name === inputSong)
+        }
+        else {
+        var filteredSong = data.filter(data => data.name)
+        };
+        // Checker For Artist
+        if (inputArtist){
+        var filteredArtist = filteredSong.filter(data => data.artists === inputArtist)
+        }
+        else {
+        var filteredArtist = filteredSong.filter(data => data.artists)
+        };
+        // Checker For Genre
+        if (inputGenre){
+        var filteredGenre = filteredArtist.filter(data => data.genre === inputGenre)
+        }
+        else {
+        var filteredGenre = filteredArtist.filter(data => data.genre)
 
-            // filter check based on date
-            if (inputSong){
-            var filteredSong = data.filter(data => data.name === inputSong)
-            console.log(inputSong)
-            console.log(filteredSong)
-            }
-            else {
-            var filteredSong = data.filter(data => data.name)
-            };
-            // then filter check for city
-            if (inputArtist){
-            var filteredArtist = filteredSong.filter(data => data.artists === inputArtist)
-            }
-            else {
-            var filteredArtist = filteredSong.filter(data => data.artists)
-            };
-            // then filter check for state
-            if (inputGenre){
-            var filteredGenre = filteredArtist.filter(data => data.genre === inputGenre)
-            }
-            else {
-            var filteredGenre = filteredArtist.filter(data => data.genre)
+        };
+        // Checker For Year
+        if (inputYear){
+            var filteredYear = filteredGenre.filter(data => data.year === inputYear)
+            console.log(inputYear)
+        }
+        else {
+        var filteredYear = filteredGenre.filter(data => data.year)
+        };
 
-            };
-            // then filter check for country
-            if (inputYear){
-                var filteredYear = filteredGenre.filter(data => data.year === inputYear)
-                console.log(inputYear)
-            }
-            else {
-            var filteredYear = filteredGenre.filter(data => data.year)
-            };
-
-    console.log(filteredYear)
-
-        // append html to table after search filters
+    // Append Table Data Based on Filter Checker
         filteredYear.forEach((song) => {
             var row = tbody.append("tr");
             Object.entries(song).forEach(([key, value]) => {
@@ -141,14 +136,14 @@ function handleSubmit() {
                 // cell.text(value);
                 cell.append("p").html(value);
             })
-        });
-
-        // clear search inputs
-        d3.select("#songs").node().value = "";
-        d3.select("#artists").node().value = "";
-        d3.select("#genres").node().value = "";
-        d3.select("#years").node().value = "";
+        })
     })
+
+    // clear search inputs
+    d3.select("#songs").node().value = "";
+    d3.select("#artists").node().value = "";
+    d3.select("#genres").node().value = "";
+    d3.select("#years").node().value = "";
 };
     
 ///////////////////////////
@@ -157,29 +152,6 @@ function handleSubmit() {
 
 d3.select("#filter-btn").on("click", handleSubmit);
 d3.select("form").on("submit", handleSubmit);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
