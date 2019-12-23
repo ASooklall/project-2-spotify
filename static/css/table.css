@@ -1,0 +1,35 @@
+body {
+    background-color: #313C53;
+}
+
+.navbar{
+    background-color: #232a35;
+}
+
+.panel{
+    background-color: #2a313d;
+}
+
+.btn {
+    position: relative;
+    margin-left: 40%;
+    margin-top: 10px;
+    padding: 10px;
+    text-align:center;
+    align-items: center;
+    width: 20%;
+    min-width: 100px;
+    background-color: rgb(42, 44, 43);
+    color: rgb(255, 255, 255);
+    border: 14px solid round;
+    border-color: rgb(20, 82, 2);
+    border-radius: 7px;
+}
+
+#spotify-table{
+    position: relative;
+    overflow: auto;
+    margin-left: 5vw;
+    margin-right: 5vw;
+    width: 90vw;
+}
