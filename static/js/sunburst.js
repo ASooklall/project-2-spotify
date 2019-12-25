@@ -58,24 +58,22 @@ d3.json(dataURL).then(data => {
   
   console.log(dataTree);
 
-  const root = partition(dataTree);
+  var root = partition(dataTree);
 
   root.each(d => d.current = d); 
 
-  const svg = d3.select('.sunburst').selectAll('svg').create("svg")
+  var svg = d3.select('.sunburst').append("svg")
     .attr("viewBox", [0, 0, width, width])
     .style("font", "10px sans-serif");
 
-  const g = svg.append("g")
+    var g = svg.append("g")
     .attr("transform", `translate(${width / 2},${width / 2})`);
 
-  var test = g.append('p').selectAll('p').html('TEST');
-
-  const path = g.append("g")
+  var path = g.append("g")
     .selectAll("path")
     .data(root.descendants().slice(1))
-    .join("path")
-    .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
+    .enter().append("path")
+    .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
     .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
     .attr("d", d => arc(d.current));
 
@@ -86,19 +84,19 @@ d3.json(dataURL).then(data => {
   path.append("title")
     .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
 
-  const label = g.append("g")
+  var label = g.append("g")
     .attr("pointer-events", "none")
     .attr("text-anchor", "middle")
     .style("user-select", "none")
     .selectAll("text")
     .data(root.descendants().slice(1))
-    .join("text")
+    .enter().append("text")
     .attr("dy", "0.35em")
     .attr("fill-opacity", d => +labelVisible(d.current))
     .attr("transform", d => labelTransform(d.current))
     .text(d => d.data.name);
 
-  const parent = g.append("circle")
+  var parent = g.append("circle")
     .datum(root)
     .attr("r", radius)
     .attr("fill", "none")
@@ -115,7 +113,7 @@ d3.json(dataURL).then(data => {
       y1: Math.max(0, d.y1 - p.depth)
     });
 
-    const t = g.transition().duration(750);
+    var t = g.transition().duration(750);
 
     // Transition the data on all arcs, even the ones that aren’t visible,
     // so that if this transition is interrupted, entering arcs will start
@@ -147,8 +145,8 @@ d3.json(dataURL).then(data => {
   }
 
   function labelTransform(d) {
-    const x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
-    const y = (d.y0 + d.y1) / 2 * radius;
+    var x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+    var y = (d.y0 + d.y1) / 2 * radius;
     return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
   }
 
@@ -157,7 +155,7 @@ d3.json(dataURL).then(data => {
 
 // Organize Function
 partition = data => {
-  const root = d3.hierarchy(data)
+  var root = d3.hierarchy(data)
       .sum(d => d.value)
       .sort((a, b) => a.value - b.value);
   return d3.partition()
