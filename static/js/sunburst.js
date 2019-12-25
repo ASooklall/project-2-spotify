@@ -7,68 +7,69 @@
 ////////// Sunburst Chart /////////
 ///////////////////////////////////
 
-// Organize Function
-
-partition = data => {
-  const root = d3.hierarchy(data)
-      .sum(d => d.index)
-      .sort((a, b) => a.index - b.index);
-  return d3.partition()
-      .size([2 * Math.PI, root.height + 1])
-    (root);
-};
-
-// Format Attributes
-color = d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
-
-format = d3.format(",d");
-
-width = 932;
-
-radius = width / 6;
-
-arc = d3.arc()
-  .startAngle(d => d.x0)
-  .endAngle(d => d.x1)
-  .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
-  .padRadius(radius * 1.5)
-  .innerRadius(d => d.y0 * radius)
-  .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
-
-d3 = require("d3@5");
-
 // Sunburst Function
-dataURL = '/top_data'
-
-console.log('START!!! pls');
+dataURL = '/top_data';
 
 d3.json(dataURL).then(data => {
+  console.log(data);
+  
   dataTree = {
     name: 'sunburst',
     children: []
   };
   
-  genreList = [];
-  data.forEach(g => {
-    if (!genreList.include(g.genre)) {
-      genreList.append(gUnit.genre);
+  data.forEach(song => {
+    if (!dataTree.children.some(c => c.name == song.genre)) {
+      dataTree.children.push({
+        name: song.genre,
+        children: [] 
+      });
     };
+
+    dataTree.children.forEach(childGenre => {
+      if (!childGenre.children.some(c => c.name == song.artists && childGenre.name == song.genre)) {
+        childGenre.children.push({
+          name: song.artists,
+          children: []
+        });
+      };
+
+      childGenre.children.forEach(childArtists => {
+        if (childArtists.name == song.artists) {
+          childArtists.children.push({
+            name: song.name,
+            value: 200 - song.index
+          });
+        };
+      });
+    });
   });
+
+  // data.forEach(a => {
+  //   dataTree.children.forEach(childGenre => {
+  //     if (!childGenre.children.some(c => c.name == a.artists && childGenre.name == a.genre)) {
+  //       childGenre.children.push({
+  //         name: a.artists,
+  //         children: []
+  //       });
+  //     };
+  //   });
+  // });
   
-  console.log(genreList);
+  console.log(dataTree);
 
   const root = partition(dataTree);
 
-  root.each(d => d.current = d);
+  root.each(d => d.current = d); 
 
-  const svg = d3.select('.sunburst').create("svg")
+  const svg = d3.select('.sunburst').selectAll('svg').create("svg")
     .attr("viewBox", [0, 0, width, width])
     .style("font", "10px sans-serif");
 
   const g = svg.append("g")
     .attr("transform", `translate(${width / 2},${width / 2})`);
 
-  var test = g.append('p').selectAll('p').html('TEST pls')
+  var test = g.append('p').selectAll('p').html('TEST');
 
   const path = g.append("g")
     .selectAll("path")
@@ -154,6 +155,36 @@ d3.json(dataURL).then(data => {
   return svg.node();
 });
 
+// Organize Function
+partition = data => {
+  const root = d3.hierarchy(data)
+      .sum(d => d.value)
+      .sort((a, b) => a.value - b.value);
+  return d3.partition()
+      .size([2 * Math.PI, root.height + 1])
+    (root);
+};
+
+// Format Attributes
+color = data => {
+  d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+};
+
+format = d3.format(",d");
+
+width = 932;
+
+radius = width / 6;
+
+arc = d3.arc()
+  .startAngle(d => d.x0)
+  .endAngle(d => d.x1)
+  .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+  .padRadius(radius * 1.5)
+  .innerRadius(d => d.y0 * radius)
+  .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
+
+// d3 = require("d3@5");
 
 ///////////////////////////////////
 /////////// Bullet Chart //////////
