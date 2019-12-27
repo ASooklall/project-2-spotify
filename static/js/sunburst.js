@@ -433,13 +433,13 @@ d3.json(dataURL).then(dataBullet => {
 
   function bulletRanges(category) {
     let min = dataBullet.reduce( (previous, current) => {
-      return ( (previous[category]) < (current[category]) ? previous[category] : current[category]);
+      return ( (previous[category]) < (current[category]) ? previous : current);
     });
     let max = dataBullet.reduce( (previous, current) => {
-      return ( (previous[category]) > (current[category]) ? previous[category] : current[category]);
+      return ( (previous[category]) > (current[category]) ? previous : current);
     });
     let mean = dataBullet.reduce( (total, next) => total + next[category], 0) / dataBullet.length;
-    return [min, mean, max];
+    return [min[category], mean, max[category]];
   };
 
   function artistAverage(artistName, category) {
@@ -450,16 +450,55 @@ d3.json(dataURL).then(dataBullet => {
   
   function bulletFormat(x) {
     return [
-      {"title":"Acousticness", "subtitle":"", "ranges":bulletRanges("acousticness"), "measures":[x.acousticness], "markers":artistAverage(x.artists, "acousticness")},
-      {"title":"Danceability", "subtitle":"", "ranges":bulletRanges("danceability"), "measures":[x.danceability], "markers":artistAverage(x.artists, "danceability")},
-      {"title":"Duration", "subtitle":"ms", "ranges":bulletRanges("duration_ms"), "measures":[x.duration_ms], "markers":artistAverage(x.artists, "duration_ms")},
-      {"title":"Energy", "subtitle":"", "ranges":bulletRanges("energy"), "measures":[x.energy], "markers":artistAverage(x.artists, "energy")},
-      {"title":"Instrumentalness", "subtitle":"", "ranges":bulletRanges("instrumentalness"), "measures":[x.instrumentalness], "markers":artistAverage(x.artists, "instrumentalness")},
-      {"title":"Liveness", "subtitle":"", "ranges":bulletRanges("liveness"), "measures":[x.liveness], "markers":artistAverage(x.artists, "liveness")},
-      {"title":"Loudness", "subtitle":"dB", "ranges":bulletRanges("loudness"), "measures":[x.loudness], "markers":artistAverage(x.artists, "loudness")},
-      {"title":"Speechiness", "subtitle":"", "ranges":bulletRanges("speechiness"), "measures":[x.speechiness], "markers":artistAverage(x.artists, "speechiness")},
-      {"title":"Tempo", "subtitle":"", "ranges":bulletRanges("tempo"), "measures":[x.tempo], "markers":artistAverage(x.artists, "tempo")},
-      {"title":"Valence", "subtitle":"", "ranges":bulletRanges("valence"), "measures":[x.valence], "markers":artistAverage(x.artists, "valence")}
+      {
+        "title":"Acousticness",
+        "subtitle":"no electrial amplification",
+        "ranges":bulletRanges("acousticness"),
+        "measures":[x.acousticness],
+        "markers":artistAverage(x.artists, "acousticness")
+      },
+      {
+        "title":"Danceability",
+        "subtitle":"suitability for dancing based on tempo, rhythm stability, beat strength, and overall regularity",
+        "ranges":bulletRanges("danceability"),
+        "measures":[x.danceability],
+        "markers":artistAverage(x.artists, "danceability")
+      },
+      {
+        "title":"Duration",
+        "subtitle":"ms",
+        "ranges":bulletRanges("duration_ms"),
+        "measures":[x.duration_ms],
+        "markers":artistAverage(x.artists, "duration_ms")
+      },
+      {
+        "title":"Energy",
+        "subtitle":"perceptual measure of intensity and activity",
+        "ranges":bulletRanges("energy"),
+        "measures":[x.energy],
+        "markers":artistAverage(x.artists, "energy")
+      },
+      {
+        "title":"Speechiness",
+        "subtitle":"presence of spoken words",
+        "ranges":bulletRanges("speechiness"),
+        "measures":[x.speechiness],
+        "markers":artistAverage(x.artists, "speechiness")
+      },
+      {
+        "title":"Tempo",
+        "subtitle":"BPM",
+        "ranges":bulletRanges("tempo"),
+        "measures":[x.tempo],
+        "markers":artistAverage(x.artists, "tempo")
+      },
+      {
+        "title":"Valence",
+        "subtitle":"musical positiveness",
+        "ranges":bulletRanges("valence"),
+        "measures":[x.valence],
+        "markers":artistAverage(x.artists, "valence")
+      }
     ];
   };
 
