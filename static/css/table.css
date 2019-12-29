@@ -3,38 +3,31 @@
     /* font-family: Ubuntu, sans-serif; */
   }
 
-/* 
-  .tableFixHead          { overflow-y: auto; height: 100px; }
-  .tableFixHead thead th { position: sticky; top: 0; }
-  
-  /* Just common table stuff. Really. */
-  /* table  { border-collapse: collapse; width: 100%; }
-  th, td { padding: 8px 16px; }
-  th     { background:#eee; } */ 
 .container-fluid {
     width: 90%;
 }
 
 .table-responsive {
-    max-height:500px;
+    max-height:550px;
+    padding-top: 20px;
+    padding-bottom:20px;
 }
 
 
 
 th {
     background: #000000;
+    color: rgb(123, 184, 26);
 }
 
 tr {
     color: #ffffff;
 }
-tr:nth-child(even) {
-    background: #14141d;
+
+tr:nth-child(n) {
+    background-color: rgb(32, 37, 49);
 }
 
-/* tr:nth-child(0) {
-    background: #000000;
-} */
 
 
 body {
@@ -50,10 +43,6 @@ body {
 }
 
 .panel{
-    /* align-items:center;
-    align-self: center;
-    align-content: center; */
-    /* background-color: #2a313d; */
     color: #ffffff;
     position:relative;
 }
@@ -71,7 +60,8 @@ body {
     background-color: #313C53; 
     color: rgb(255, 255, 255);
     border: 14px solid round;
-    border-color: rgb(20, 82, 2);
+    /* border-color: rgb(20, 82, 2); */
+    border-color: #9CFF00;
     border-radius: 7px;
 }
 
@@ -89,7 +79,7 @@ body {
   .wrapper {
     position: relative;
     min-height: 100%;
-    padding-bottom: 130px;
+    padding-bottom: 150px;
     overflow: auto;
   }
   
@@ -109,7 +99,7 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 5px;
+    padding: 10px;
     /* background: #1b3146; */
     color: #ffffff;
     background-color: #000000;
@@ -151,11 +141,11 @@ body {
   }
   
   .loader {
-    margin-top: 50px;
+    margin-top: 40px;
   }
   
   .margin-top-50 {
-    margin-top: 50px;
+    margin-top: 8px;
   }
   
 
