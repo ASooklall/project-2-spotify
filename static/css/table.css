@@ -3,10 +3,43 @@
     /* font-family: Ubuntu, sans-serif; */
   }
 
+/* 
+  .tableFixHead          { overflow-y: auto; height: 100px; }
+  .tableFixHead thead th { position: sticky; top: 0; }
+  
+  /* Just common table stuff. Really. */
+  /* table  { border-collapse: collapse; width: 100%; }
+  th, td { padding: 8px 16px; }
+  th     { background:#eee; } */ 
+.container-fluid {
+    width: 90%;
+}
+
+.table-responsive {
+    max-height:500px;
+}
+
+
+
+th {
+    background: #000000;
+}
+
+tr {
+    color: #ffffff;
+}
+tr:nth-child(even) {
+    background: #14141d;
+}
+
+/* tr:nth-child(0) {
+    background: #000000;
+} */
 
 
 body {
-    background-color: #313C53;
+    /* background-color: #313C53; */
+    background-color: #14141d;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -17,7 +50,11 @@ body {
 }
 
 .panel{
-    background-color: #2a313d;
+    /* align-items:center;
+    align-self: center;
+    align-content: center; */
+    /* background-color: #2a313d; */
+    color: #ffffff;
     position:relative;
 }
 
@@ -30,7 +67,8 @@ body {
     align-items: center;
     width: 20%;
     min-width: 100px;
-    background-color: rgb(42, 44, 43);
+    /* background-color: rgb(42, 44, 43); */
+    background-color: #313C53; 
     color: rgb(255, 255, 255);
     border: 14px solid round;
     border-color: rgb(20, 82, 2);
@@ -62,7 +100,7 @@ body {
     bottom: 0;
     left: 0;
     min-height: 100px;
-    background: #4e5d6c;
+    background: #080808;
   }
   
   /* The code styles the text at the bottom of the footer */
@@ -72,7 +110,13 @@ body {
     bottom: 0;
     left: 0;
     padding: 5px;
-    background: #1b3146;
+    /* background: #1b3146; */
+    color: #ffffff;
+    background-color: #000000;
+  }
+
+  a:link, a:visited {
+      color: #9CFF00
   }
   
   .navbar {
