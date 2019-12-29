@@ -113,11 +113,31 @@ d3.json(dataURL).then(data => {
 // function buildData(){
     console.log(data);
     console.log("hi");
-    var canvas = d3.select("canvas"),
-    context = canvas.getContext("2d"),
-    width = canvas.width,
-    height = canvas.height,
-    tau = 2 * Math.PI;
+
+
+const svg = d3.select('.force-graph').append('svg')
+  .style('width', '100%')
+  .style('height', '100%');
+
+const group = svg.append('g')
+  .attr('class', 'node')
+  .attr('transform', 'translate(10,10)');
+
+const foreignObject = group.append('foreignObject')
+  .attr('width', 600)
+  .attr('height', 600);
+
+const canvas = foreignObject.append('xhtml:canvas')
+  .attr('xmlns', 'http://www.w3.org/1999/xhtml');
+
+const context = canvas.node().getContext('2d');
+
+console.log(canvas.node().constructor.name);
+    // var canvas = d3.select("canvas"),
+    // context = canvas.getContext("2d"),
+    // width = canvas.width,
+    // height = canvas.height,
+    var tau = 2 * Math.PI;
 
 console.log(width)
 console.log(data)
@@ -323,7 +343,7 @@ buildChart()
 
 
 
-
+console.log("end app.js here!!")
 
 
 
