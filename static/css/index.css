@@ -28,6 +28,11 @@ div.tooltip {
     background-color: #a1a09d;
 }
 
+.legend-row {
+    text-align: center;
+    vertical-align: middle;
+}
+
 #button-container {
     padding-top: 100px;
     position: relative;
