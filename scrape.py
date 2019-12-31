@@ -15,6 +15,7 @@ def run_scrape():
     top_2018 = pd.read_csv("assets/data/top2018.csv", encoding='unicode_escape')
     top_2019 = pd.read_csv("assets/data/top2019.csv", encoding='unicode_escape')
 
+    print("loaded csvs")
 
     # initialize list to scrape
     search_data = []
@@ -201,16 +202,72 @@ def run_scrape():
         return dataframe
 
     # Add to each df
+    print("adding genre to top 2017")
     top_2017_df = add_genre(top_2017)
+    print("finished adding genre to top 2017")
+    print()
+    print("adding genre to top 2018")
     top_2018_df = add_genre(top_2018)
+    print("finished adding genre to top 2018")
+
+    ##############################
+    ###### Fixing top genres ####
+    ############################
+
+    ### helper functions ###
+    def remove_unpopular_genres(dataframe):
+        ''' only keeps top genres '''
+        final_genres = ['trap', 'hip hop', 'reggaeton', 'edm', 'latin', 'tropical house', 'pop rap', 'rap', 'pop']
+        for i, genres in dataframe['genre'].iteritems():
+            index = 0
+            while index < len(genres):
+                if genres[index] in final_genres:
+                    index += 1
+                else:
+                    del(genres[index])
+
+        return dataframe
+
+    def add_genre_other(dataframe):
+        ''' adds other as genre if empty '''
+        for i, genres in dataframe['genre'].iteritems():
+            if len(genres) == 0:
+                genres.append('other')
+
+        return dataframe
+
+    def del_mult_genres(dataframe):
+        ''' picks main genre (choosing least populated genre)'''
+        final_genres = ['trap', 'hip hop', 'reggaeton', 'edm', 'latin', 'tropical house', 'pop rap', 'rap', 'pop']
+        for i, song_genres in dataframe['genre'].iteritems():
+            if len(song_genres) > 1:
+                index = 0
+                while index < len(final_genres):
+                    if final_genres[index] in song_genres:
+                        dataframe.loc[i,'genre'] = final_genres[index]
+                        break
+                    else:
+                        index += 1
+            else:
+                dataframe.loc[i,'genre'] = song_genres
+
+        return dataframe
+
+    #### Run on our dataframes
+    each_df = [top_2017_df, top_2018_df, top_2019_df]
+    for df in each_df:
+        df = remove_unpopular_genres(df)
+        df = add_genre_other(df)
+        df = del_mult_genres(df)
+
 
 
     #########################
     ## save DFs as excel ####
     #######################
-    top_2017_df.to_excel('assets/data/top2017.xlsx', index=False)
-    top_2018_df.to_excel('assets/data/top2018.xlsx', index=False)
-    top_2019_df.to_excel('assets/data/top2019.xlsx', index=False)
+    top_2017_df.to_excel('static/data/top2017_clean.xlsx', index=False)
+    top_2018_df.to_excel('static/data/top2018_clean.xlsx', index=False)
+    top_2019_df.to_excel('static/data/top2019_clean.xlsx', index=False)
 
 if __name__ == "__main__":
     run_scrape()
