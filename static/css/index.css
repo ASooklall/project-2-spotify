@@ -1,34 +1,21 @@
 body {
-    background-color: #e7ffc7;
+    background-color: #4d4e4a;
 }
 
-/* 
-.node circle {
-    pointer-events: all;
-    stroke: #777;
-    stroke-width: 1px;
-  }
+.title {
+    text-align: center;
+    color: #9CFF00;
+}
 
-
-  div.tooltip {
-  position: absolute;
-  background-color: white;
-  max-width: 200px;
-  height: auto;
-  padding: 1px;
-  border-style: solid;
-  border-radius: 4px;
-  border-width: 1px;
-  box-shadow: 3px 3px 10px rgba(0, 0, 0, .5);
-  pointer-events: none;
-} */
-
+.subtitle {
+    text-align: center;
+    color: floralwhite;
+}
 
 div.tooltip { 
     position: absolute;     
     text-align: center;     
     width: 150px;          
-    /*height: 28px;         */
     padding: 2px;       
     font: 12px sans-serif;    
     background: lightgrey; 
@@ -37,17 +24,8 @@ div.tooltip {
     pointer-events: none;     
   }
 
-.force-graph {
-    border: 1px solid;
-    border-color: black;
-}
-
-
-
-
-
 .container {
-    background-color: #fff4ce;
+    background-color: #a1a09d;
 }
 
 #button-container {
@@ -64,4 +42,4 @@ div.tooltip {
 .bullet .measure.s0 { fill: lightsteelblue; }
 .bullet .measure.s1 { fill: steelblue; }
 .bullet .title { font-size: 14px; font-weight: bold; }
-.bullet .subtitle { fill: #999; }
+.bullet .subtitle { fill: #999; } 
