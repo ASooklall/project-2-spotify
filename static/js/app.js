@@ -142,8 +142,9 @@ console.log(radiusScale(300000));
     d = {
       cluster     : forcedCluster,
       r           : scaledRadius,
-      name       : d.name,
-      genre   : d.genre
+      name        : d.name,
+      genre       : d.genre,
+      id          : d.id
     };
     // add to clusters array if it doesn't exist or the radius is larger than another radius in the cluster
     if (!clusters[forcedCluster] || (scaledRadius > clusters[forcedCluster].r)) clusters[forcedCluster] = d;
@@ -180,7 +181,11 @@ console.log(radiusScale(300000));
             div.transition()    
                 .duration(500)    
                 .style("opacity", 0); 
-        });
+        })
+        .on("click", function(d) {
+          console.log(d.id)
+        })
+        ;
 
   // create the clustering/collision force simulation
   var simulation = d3.forceSimulation(nodes)
