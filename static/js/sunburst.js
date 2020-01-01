@@ -52,6 +52,8 @@ d3.json(dataURL).then(dataBurst => {
 
   root.each(d => d.current = d); 
 
+  width = 800;
+
   var svg = d3.select('.sunburst').append("svg")
     .attr("viewBox", [0, 0, width, width])
     .style("font", "10px sans-serif");
