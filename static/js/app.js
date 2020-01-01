@@ -173,7 +173,7 @@ console.log(radiusScale(300000));
             div.transition()    
                 .duration(200)    
                 .style("opacity", .9);    
-            div .html( "The song " + d.name+ "<br/>In the genre " + d.genre)  
+            div .html( "<b>Song: </b>" + d.name + "<br/><b>Genre: </b>" + d.genre + "<br/><b>Popularity: </b>")  
                 .style("left", (d3.event.pageX) + "px")   
                 .style("top", (d3.event.pageY - 28) + "px");  
             })          
