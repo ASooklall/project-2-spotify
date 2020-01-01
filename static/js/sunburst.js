@@ -14,6 +14,7 @@ d3.json(dataURL).then(dataBurst => {
   console.log(dataBurst);
   
   dataTree = {
+    type: 'sunburstTitle',
     name: 'Spotify',
     children: []
   };
@@ -21,6 +22,7 @@ d3.json(dataURL).then(dataBurst => {
   dataBurst.forEach(song => {
     if (!dataTree.children.some(c => c.name == song.genre)) {
       dataTree.children.push({
+        type: 'sunburstGenre',
         name: song.genre,
         children: [] 
       });
@@ -29,6 +31,7 @@ d3.json(dataURL).then(dataBurst => {
     dataTree.children.forEach(childGenre => {
       if (!childGenre.children.some(c => c.name == song.artists && childGenre.name == song.genre)) {
         childGenre.children.push({
+          type: 'sunburstArtist',
           name: song.artists,
           children: []
         });
@@ -37,6 +40,7 @@ d3.json(dataURL).then(dataBurst => {
       childGenre.children.forEach(childArtists => {
         if (childArtists.name == song.artists) {
           childArtists.children.push({
+            type: 'sunburstSong',
             name: song.name,
             id: song.id,
             value: 200 - song.index
@@ -67,7 +71,8 @@ d3.json(dataURL).then(dataBurst => {
     .enter().append("path")
     .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
     .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
-    .attr("d", d => arc(d.current));
+    .attr("d", d => arc(d.current))
+    .attr('id', d => d.data.type);
 
   path.filter(d => d.children)
     .style("cursor", "pointer")
