@@ -160,7 +160,7 @@ color = data => {
 
 format = d3.format(",d");
 
-width = 720;
+width = 450;
 
 radius = width / 6;
 
