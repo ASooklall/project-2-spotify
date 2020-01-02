@@ -58,11 +58,11 @@ d3.json(dataURL).then(dataBurst => {
 
   width = 800;
 
-  var svg = d3.select('.sunburst').append("svg")
+  var svgSunburst = d3.select('.sunburst').append("svg")
     .attr("viewBox", [0, 0, width, width])
     .style("font", "10px sans-serif");
 
-  var g = svg.append("g")
+  var g = svgSunburst.append("g")
     .attr("transform", `translate(${width / 2},${width / 2})`);
 
   var path = g.append("g")
@@ -72,7 +72,8 @@ d3.json(dataURL).then(dataBurst => {
     .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
     .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
     .attr("d", d => arc(d.current))
-    .attr('id', d => d.data.type);
+    .attr('class', d => d.data.type)
+    .attr('id', d => d.data.id);
 
   path.filter(d => d.children)
     .style("cursor", "pointer")
@@ -147,7 +148,7 @@ d3.json(dataURL).then(dataBurst => {
     return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
   }
 
-  return svg.node();
+  return svgSunburst.node();
 });
 
 // Organize Function
@@ -438,7 +439,7 @@ d3.json(dataURL).then(dataBullet => {
   
   console.log(bestSong);
 
-  function bulletRanges(category) {
+  function bulletRangeFinder(category) {
     let min = dataBullet.reduce( (previous, current) => {
       return ( (previous[category]) < (current[category]) ? previous : current);
     });
@@ -460,49 +461,49 @@ d3.json(dataURL).then(dataBullet => {
       {
         "title":"Acousticness",
         "subtitle":"no electrial amplification",
-        "ranges":bulletRanges("acousticness"),
+        "ranges":bulletRangeFinder("acousticness"),
         "measures":[x.acousticness],
         "markers":artistAverage(x.artists, "acousticness")
       },
       {
         "title":"Danceability",
         "subtitle":"suitability for dancing based on tempo, rhythm stability, beat strength, and overall regularity",
-        "ranges":bulletRanges("danceability"),
+        "ranges":bulletRangeFinder("danceability"),
         "measures":[x.danceability],
         "markers":artistAverage(x.artists, "danceability")
       },
       {
         "title":"Duration",
         "subtitle":"ms",
-        "ranges":bulletRanges("duration_ms"),
+        "ranges":bulletRangeFinder("duration_ms"),
         "measures":[x.duration_ms],
         "markers":artistAverage(x.artists, "duration_ms")
       },
       {
         "title":"Energy",
         "subtitle":"perceptual measure of intensity and activity",
-        "ranges":bulletRanges("energy"),
+        "ranges":bulletRangeFinder("energy"),
         "measures":[x.energy],
         "markers":artistAverage(x.artists, "energy")
       },
       {
         "title":"Speechiness",
         "subtitle":"presence of spoken words",
-        "ranges":bulletRanges("speechiness"),
+        "ranges":bulletRangeFinder("speechiness"),
         "measures":[x.speechiness],
         "markers":artistAverage(x.artists, "speechiness")
       },
       {
         "title":"Tempo",
         "subtitle":"BPM",
-        "ranges":bulletRanges("tempo"),
+        "ranges":bulletRangeFinder("tempo"),
         "measures":[x.tempo],
         "markers":artistAverage(x.artists, "tempo")
       },
       {
         "title":"Valence",
         "subtitle":"musical positiveness",
-        "ranges":bulletRanges("valence"),
+        "ranges":bulletRangeFinder("valence"),
         "measures":[x.valence],
         "markers":artistAverage(x.artists, "valence")
       }
@@ -513,7 +514,7 @@ d3.json(dataURL).then(dataBullet => {
 
   console.log(bestBullet);
 
-  let svg = d3.select(".bullet-chart").selectAll("svg")
+  var svgBullet = d3.select(".bullet-chart").selectAll("svg")
       .data(bestBullet)
     .enter().append("svg")
       .attr("class", "bullet")
@@ -523,7 +524,7 @@ d3.json(dataURL).then(dataBullet => {
       .attr("transform", "translate(" + bulletMargin.left + "," + bulletMargin.top + ")")
       .call(bulletChart);
 
-  let title = svg.append("g")
+  let title = svgBullet.append("g")
       .style("text-anchor", "end")
       .attr("transform", "translate(-6," + height / 2 + ")");
 
@@ -536,8 +537,17 @@ d3.json(dataURL).then(dataBullet => {
       .attr("dy", "1em")
       .text(function(d) { return d.subtitle; });
 
-  d3.selectAll("button").on("click", function() {
-    svg.datum(randomize).call(chart.duration(1000)); // TODO automatic transition
+  d3.selectAll(".sunburstSong").on("click", function() {
+    console.log(this.id);
+    var newBullet = dataBullet.filter(b => b.id == this.id)[0];
+    console.log(bulletFormat(newBullet));
+    var newData = bulletFormat(newBullet);
+    svgBullet.datum(function (d, i) {
+      d.ranges = newData[i].ranges;
+      d.measures = newData[i].measures;
+      d.markers = newData[i].markers;
+      return d;
+    }).call(bulletChart.duration(1000)); // TODO automatic transition
   });
 });
 
