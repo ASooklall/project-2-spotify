@@ -43,17 +43,40 @@ var div = d3.select("body").append("div")
 
 //load data
 d3.json(dataURL).then(d => {
-  var radiusEquation = (d.popularity/100)*(d.popularity/100)
+
+
+
+
+
+
+
+
   var radiusScale = d3.scaleLinear()
     .domain(d3.extent(d, function(d) { return +d.popularity*d.popularity*d.popularity/100;} ))
     .range([4, maxRadius]);
 
 console.log(radiusScale(300000));
-
+var genreCode = {}
+var genreCounter = 1
   var nodes = d.map((d) => {
+
+
+
+
+    // d.forEach(z => {
+      if (!(d.genre in genreCode)) {
+        genreCode[d.genre] = genreCounter
+        genreCounter++
+      }
+    // })
+    console.log(genreCode)
+
+
+
     // scale radius to fit on the screen
     var scaledRadius  = radiusScale(+d.popularity*d.popularity*d.popularity/100),
-        forcedCluster = +d.genre;
+        forcedCluster = +genreCode[d.genre];
+        // forcedCluster = +d.genre;
 
     // add cluster id and radius to array
     d = {
