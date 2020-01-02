@@ -437,7 +437,7 @@ var bulletChart = d3.bullet()
     .height(height);
 
 function generateBullet(selectedYear) {
-  d3.select('.sunburst').html('');
+  d3.select('.bullet-chart').html('');
   d3.json(dataURL).then(dataBullet => {
     let filteredBullet = dataBullet.filter(x => x.year == selectedYear);
     let bestSong = filteredBullet.reduce( (previous, current) => {
