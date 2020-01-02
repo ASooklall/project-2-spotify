@@ -350,6 +350,43 @@ def run_scrape():
     print("Finished with 2018")
     print()
 
+    #######################################
+    #### Adding Popularity to table ##
+    #####################################
+
+    ### helper functions ###
+    print()
+    print("Reading popularity helper functions")
+    print()
+    def find_popularity(track_id):
+        ''' uses track id to find popularity value '''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+        sp = spotipy.Spotify(auth=token)
+        result = sp.track(track_id)
+        popularity = result['popularity']
+
+        return popularity
+
+    def add_popularity_to_df(dataframe):
+        for i, column in dataframe.iterrows():
+            track_id = column['id']
+            #print("track id is: ", track_id)
+            popularity = find_popularity(track_id)
+            #print(popularity)
+            dataframe.loc[i, 'popularity'] = popularity
+
+        return dataframe
+
+
+    #### Run on our dataframes
+    for df in each_df:
+        print()
+        print("finding popularity for", df)
+        print()
+        df = add_popularity_to_df(df)
+        print()
+        print("finished popularity for", df)
+        print()
 
     #########################
     ## save DFs as excel ####
