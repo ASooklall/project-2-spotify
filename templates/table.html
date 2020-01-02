@@ -5,9 +5,11 @@
   <meta charset="utf-8">
   <title>UFO Finder</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/superhero/bootstrap.min.css"> -->
   <link rel="stylesheet" href="static/css/table.css">
 </head>
@@ -30,7 +32,7 @@
       <h1 id="title-t1">Spotify Song Visualization</h1>
       <h3 id="subtitle-t1">Table Data</h3>
     </div>
-    <!-- <div class="container"> -->
+    <div class="container-fluid">
       <div class="row margin-top-50">
         <div class="col-md-12">
           <aside class="filters">
@@ -58,19 +60,19 @@
                       </li>
                     </ul>                     -->
 
-                    <div class="form-cell col-md-2">
+                    <div class="form-cell col-md-3">
                         <label for="song">Song Name</label>
                         <input class="form-control" id="songs" type="text" placeholder="Song Name">
                     </div>
-                    <div class="form-cell col-md-2">
+                    <div class="form-cell col-md-3">
                         <label for="artist">Artist Name</label>
                         <input class="form-control" id="artists" type="text" placeholder="Artist Name">
                     </div>
-                    <div class="form-cell col-md-2">
+                    <div class="form-cell col-md-3">
                         <label for="genre">Genre</label>
                         <input class="form-control" id="genres" type="text" placeholder="Genre">
                     </div>
-                    <div class="form-cell col-md-2">
+                    <div class="form-cell col-md-3">
                         <label for="year">Year</label>
                         <input class="form-control" id="years" type="text" placeholder="201X">
                     </div>
@@ -85,7 +87,7 @@
           </aside>
         </div>
         <div class="col-md-12">
-          <div id="spotify-table-container" class="table-container">
+          <div id="spotify-table-container" class="table-container table-responsive">
             <table id="spotify-table" class="table table-striped">
               <thead>
                 <tr>
@@ -103,6 +105,7 @@
                   <th class="table-head">Loudness</th>
                   <th class="table-head">Mode</th>
                   <th class="table-head">Name</th>
+                  <!-- <th class="table-head">Popularity</th> -->
                   <th class="table-head">Speechiness</th>
                   <th class="table-head">Tempo</th>
                   <th class="table-head">Time Signature</th>
@@ -115,12 +118,33 @@
           </div>
         </div>
       </div>
-    <!-- </div> -->
+    </div>
     <footer class="footer">
-      <span class="bottom">&copy 2019 Andrew Sooklall, Michael Esteban, Pratik Pathak, Zane Lynch <br> We claim no rights to the data provided by <a href="https://www.spotify.com/us/" target="blank">Spotify</a> or other IP used in the creation of this script. A full list of Acknowledgements can be found <a href="/aboutus">here.</a></span>
+      <span class="bottom">
+        <div class="footer-text row">
+          <div class="col-md-6">
+            <p>Placeholder</p>
+          </div>
+          <div class="col-md-6">
+            <p>&copy 2019 Andrew Sooklall, Michael Esteban, Pratik Pathak, Zane Lynch </p>
+          </div>
+        </div>
+        <div class="footer-text row">
+          <div class="col-md-6">
+            <p>Placeholder</p>
+          </div>            
+          <div class="col-md-6">
+            <p>We claim no rights to the data provided by <a href="https://www.spotify.com/us/" target="blank">Spotify</a> or other IP used in the creation of this script. A full list of Acknowledgements can be found <a href="/aboutus">here.</a></p>
+          </div>          
+        </div>
+      </span>
     </footer>
   </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script>
+
+
+  
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.js"></script> -->
+  <script src="https://d3js.org/d3.v5.min.js"></script>
   <script src="static/js/table.js"></script>
 </body>
 

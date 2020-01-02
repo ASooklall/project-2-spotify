@@ -90,6 +90,7 @@ def top_data():
     data = engine.execute('SELECT * FROM ' + table_name)
 
     for row in data:
+        # songs.append(dict(zip(column_names, row)))
         temp = {}
         for i in range(0, len(row)):
             temp[column_names[i]] = row[i]

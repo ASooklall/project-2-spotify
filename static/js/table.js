@@ -39,18 +39,19 @@ var tbody = d3.select("tbody");
 ///////////////////////////////////
 
 // test
-d3.json(dataURL, data => {
+d3.json(dataURL).then(data => {
     test2 = data.filter(data => data.name === 'Shape of You')
     test3 = test2[0].acousticness
     test4 = typeof test3
     console.log(test3)
     console.log(test4)
+    console.log(data)
 });
 
 
 // initialize table with data
 function init() {
-    d3.json(dataURL, data => {
+    d3.json(dataURL).then(data => {
     // d3.event.preventDefault();
         data.forEach((song) => {
 
@@ -92,7 +93,7 @@ function handleSubmit() {
     tbody.html("")
 
     // Filter
-    d3.json(dataURL, data => {
+    d3.json(dataURL).then(data => {
         console.log(data.filter(data => data.name === 'Shape of You'))
 
         // Checker For Filter

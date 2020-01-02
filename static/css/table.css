@@ -3,10 +3,36 @@
     /* font-family: Ubuntu, sans-serif; */
   }
 
+.container-fluid {
+    width: 90%;
+}
+
+.table-responsive {
+    max-height:550px;
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+
+
+
+th {
+    background: #000000;
+    color: rgb(123, 184, 26);
+}
+
+tr {
+    color: #ffffff;
+}
+
+tr:nth-child(n) {
+    background-color: rgb(32, 37, 49);
+}
+
 
 
 body {
-    background-color: #313C53;
+    /* background-color: #313C53; */
+    background-color: #14141d;
     height: 100%;
     padding: 0;
     margin: 0;
@@ -17,7 +43,7 @@ body {
 }
 
 .panel{
-    background-color: #2a313d;
+    color: #ffffff;
     position:relative;
 }
 
@@ -30,10 +56,12 @@ body {
     align-items: center;
     width: 20%;
     min-width: 100px;
-    background-color: rgb(42, 44, 43);
+    /* background-color: rgb(42, 44, 43); */
+    background-color: #313C53; 
     color: rgb(255, 255, 255);
     border: 14px solid round;
-    border-color: rgb(20, 82, 2);
+    /* border-color: rgb(20, 82, 2); */
+    border-color: #9CFF00;
     border-radius: 7px;
 }
 
@@ -51,7 +79,7 @@ body {
   .wrapper {
     position: relative;
     min-height: 100%;
-    padding-bottom: 130px;
+    padding-bottom: 150px;
     overflow: auto;
   }
   
@@ -62,7 +90,7 @@ body {
     bottom: 0;
     left: 0;
     min-height: 100px;
-    background: #4e5d6c;
+    background: #080808;
   }
   
   /* The code styles the text at the bottom of the footer */
@@ -71,8 +99,14 @@ body {
     right: 0;
     bottom: 0;
     left: 0;
-    padding: 5px;
-    background: #1b3146;
+    padding: 10px;
+    /* background: #1b3146; */
+    color: #ffffff;
+    background-color: #000000;
+  }
+
+  a:link, a:visited {
+      color: #9CFF00
   }
   
   .navbar {
@@ -107,11 +141,11 @@ body {
   }
   
   .loader {
-    margin-top: 50px;
+    margin-top: 40px;
   }
   
   .margin-top-50 {
-    margin-top: 50px;
+    margin-top: 8px;
   }
   
 

@@ -1,12 +1,51 @@
 body {
-    background-color: #e7ffc7;
+    background-color: #202020e5;
 }
 
+.title {
+    text-align: center;
+    color: #9CFF00;
+}
+
+.sub-title {
+    text-align: center;
+    color: floralwhite;
+}
+
+div.tooltip { 
+    position: absolute;     
+    text-align: center;     
+    width: 150px;          
+    padding: 2px;       
+    font: 12px sans-serif;    
+    background: lightgrey; 
+    border: 0px;    
+    border-radius: 8px;     
+    pointer-events: none;     
+  }
+
 .container {
-    background-color: #fff4ce;
+    background-color: #a1a09d;
+}
+
+.legend-row {
+    text-align: center;
+    vertical-align: middle;
 }
 
 #button-container {
+    padding-top: 100px;
     position: relative;
     left: 40%;
 }
+
+.bullet { font: 10px sans-serif; }
+.bullet .marker { stroke: #000; stroke-width: 2px; }
+.bullet .tick line { stroke: #666; stroke-width: .5px; }
+.bullet .range.s0 { fill: #eee; }
+.bullet .range.s1 { fill: #ddd; }
+.bullet .range.s2 { fill: #ccc; }
+.bullet .measure.s0 { fill: lightsteelblue; }
+.bullet .measure.s1 { fill: steelblue; }
+.bullet .title { font-size: 14px; font-weight: bold; }
+.bullet .subtitle { fill: #999; } 
