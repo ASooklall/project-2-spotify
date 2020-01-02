@@ -46,7 +46,7 @@ function generateSunburst(selectedYear) {
               type: 'sunburstSong',
               name: song.name,
               id: song.id,
-              value: 200 - song.index
+              value: song.popularity
             });
           };
         });
@@ -441,7 +441,7 @@ function generateBullet(selectedYear) {
   d3.json(dataURL).then(dataBullet => {
     let filteredBullet = dataBullet.filter(x => x.year == selectedYear);
     let bestSong = filteredBullet.reduce( (previous, current) => {
-      return ( (200 - previous.index) > (200 - current.index) ? previous : current);
+      return ( (previous.popularity) > (current.popularity) ? previous : current);
     });
     
     console.log(bestSong);
@@ -465,6 +465,13 @@ function generateBullet(selectedYear) {
     
     function bulletFormat(x) {
       return [
+        {
+          "title":"Popularity",
+          "subtitle":"",
+          "ranges":bulletRangeFinder("popularity"),
+          "measures":[x.popularity],
+          "markers":artistAverage(x.artists, "popularity")
+        },
         {
           "title":"Acousticness",
           "subtitle":"no electrial amplification",
@@ -569,8 +576,8 @@ function generateBullet(selectedYear) {
 ////////// Year Dropdown //////////
 ///////////////////////////////////
 
-generateSunburst('2017');
-generateBullet('2017');
+generateSunburst('2019');
+generateBullet('2019');
 
 $('#sunburst-year').on('change', function() {
   console.log(this.value);
