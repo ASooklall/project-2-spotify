@@ -9,178 +9,182 @@
 
 // Sunburst Function
 dataURL = '/top_data';
+function generateSunburst(selectedYear) {
+  d3.select('.sunburst').html('');
+  d3.json(dataURL).then(dataBurst => {
+    let filteredBurst = dataBurst.filter(x => x.year == selectedYear);
 
-d3.json(dataURL).then(dataBurst => {
-  console.log(dataBurst);
-  
-  dataTree = {
-    type: 'sunburstTitle',
-    name: 'Spotify',
-    children: []
-  };
-  
-  dataBurst.forEach(song => {
-    if (!dataTree.children.some(c => c.name == song.genre)) {
-      dataTree.children.push({
-        type: 'sunburstGenre',
-        name: song.genre,
-        children: [] 
-      });
+    console.log(filteredBurst);
+
+    dataTree = {
+      type: 'sunburstTitle',
+      name: 'Spotify',
+      children: []
     };
-
-    dataTree.children.forEach(childGenre => {
-      if (!childGenre.children.some(c => c.name == song.artists && childGenre.name == song.genre)) {
-        childGenre.children.push({
-          type: 'sunburstArtist',
-          name: song.artists,
-          children: []
+    
+    filteredBurst.forEach(song => {
+      if (!dataTree.children.some(c => c.name == song.genre)) {
+        dataTree.children.push({
+          type: 'sunburstGenre',
+          name: song.genre,
+          children: [] 
         });
       };
 
-      childGenre.children.forEach(childArtists => {
-        if (childArtists.name == song.artists) {
-          childArtists.children.push({
-            type: 'sunburstSong',
-            name: song.name,
-            id: song.id,
-            value: 200 - song.index
+      dataTree.children.forEach(childGenre => {
+        if (!childGenre.children.some(c => c.name == song.artists && childGenre.name == song.genre)) {
+          childGenre.children.push({
+            type: 'sunburstArtist',
+            name: song.artists,
+            children: []
           });
         };
+
+        childGenre.children.forEach(childArtists => {
+          if (childArtists.name == song.artists) {
+            childArtists.children.push({
+              type: 'sunburstSong',
+              name: song.name,
+              id: song.id,
+              value: 200 - song.index
+            });
+          };
+        });
       });
     });
+    
+    console.log(dataTree);
+
+    let root = partition(dataTree);
+
+    root.each(d => d.current = d); 
+
+    width = 800;
+
+    var svgSunburst = d3.select('.sunburst').append("svg")
+      .attr("viewBox", [0, 0, width, width])
+      .style("font", "10px sans-serif");
+
+    var g = svgSunburst.append("g")
+      .attr("transform", `translate(${width / 2},${width / 2})`);
+
+    var path = g.append("g")
+      .selectAll("path")
+      .data(root.descendants().slice(1))
+      .enter().append("path")
+      .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
+      .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
+      .attr("d", d => arc(d.current))
+      .attr('class', d => d.data.type)
+      .attr('id', d => d.data.id);
+
+    path.filter(d => d.children)
+      .style("cursor", "pointer")
+      .on("click", clicked);
+
+    path.append("title")
+      .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
+
+    let label = g.append("g")
+      .attr("pointer-events", "none")
+      .attr("text-anchor", "middle")
+      .style("user-select", "none")
+      .selectAll("text")
+      .data(root.descendants().slice(1))
+      .enter().append("text")
+      .attr("dy", "0.35em")
+      .attr("fill-opacity", d => +labelVisible(d.current))
+      .attr("transform", d => labelTransform(d.current))
+      .text(d => d.data.name);
+
+    let parent = g.append("circle")
+      .datum(root)
+      .attr("r", radius)
+      .attr("fill", "none")
+      .attr("pointer-events", "all")
+      .on("click", clicked);
+
+    function clicked(p) {
+      parent.datum(p.parent || root);
+
+      root.each(d => d.target = {
+        x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+        x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
+        y0: Math.max(0, d.y0 - p.depth),
+        y1: Math.max(0, d.y1 - p.depth)
+      });
+
+      let t = g.transition().duration(750);
+
+      // Transition the data on all arcs, even the ones that aren’t visible,
+      // so that if this transition is interrupted, entering arcs will start
+      // the next transition from the desired position.
+      path.transition(t)
+        .tween("data", d => {
+          const i = d3.interpolate(d.current, d.target);
+          return t => d.current = i(t);
+        })
+        .filter(function(d) {
+          return +this.getAttribute("fill-opacity") || arcVisible(d.target);
+        })
+        .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
+        .attrTween("d", d => () => arc(d.current));
+
+      label.filter(function(d) {
+        return +this.getAttribute("fill-opacity") || labelVisible(d.target);
+      }).transition(t)
+      .attr("fill-opacity", d => +labelVisible(d.target))
+      .attrTween("transform", d => () => labelTransform(d.current));
+    }
+    
+    function arcVisible(d) {
+      return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
+    }
+
+    function labelVisible(d) {
+      return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
+    }
+
+    function labelTransform(d) {
+      let x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
+      let y = (d.y0 + d.y1) / 2 * radius;
+      return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
+    }
+
+    return svgSunburst.node();
   });
-  
-  console.log(dataTree);
 
-  let root = partition(dataTree);
+  // Organize Function
+  partition = data => {
+    let root = d3.hierarchy(data)
+        .sum(d => d.value)
+        .sort((a, b) => a.value - b.value);
+    return d3.partition()
+        .size([2 * Math.PI, root.height + 1])
+      (root);
+  };
 
-  root.each(d => d.current = d); 
+  // Format Attributes
+  color = data => {
+    d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
+  };
 
-  width = 800;
+  format = d3.format(",d");
 
-  var svgSunburst = d3.select('.sunburst').append("svg")
-    .attr("viewBox", [0, 0, width, width])
-    .style("font", "10px sans-serif");
+  width = 450;
 
-  var g = svgSunburst.append("g")
-    .attr("transform", `translate(${width / 2},${width / 2})`);
+  radius = width / 6;
 
-  var path = g.append("g")
-    .selectAll("path")
-    .data(root.descendants().slice(1))
-    .enter().append("path")
-    .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
-    .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
-    .attr("d", d => arc(d.current))
-    .attr('class', d => d.data.type)
-    .attr('id', d => d.data.id);
+  arc = d3.arc()
+    .startAngle(d => d.x0)
+    .endAngle(d => d.x1)
+    .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+    .padRadius(radius * 1.5)
+    .innerRadius(d => d.y0 * radius)
+    .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
 
-  path.filter(d => d.children)
-    .style("cursor", "pointer")
-    .on("click", clicked);
-
-  path.append("title")
-    .text(d => `${d.ancestors().map(d => d.data.name).reverse().join("/")}\n${format(d.value)}`);
-
-  let label = g.append("g")
-    .attr("pointer-events", "none")
-    .attr("text-anchor", "middle")
-    .style("user-select", "none")
-    .selectAll("text")
-    .data(root.descendants().slice(1))
-    .enter().append("text")
-    .attr("dy", "0.35em")
-    .attr("fill-opacity", d => +labelVisible(d.current))
-    .attr("transform", d => labelTransform(d.current))
-    .text(d => d.data.name);
-
-  let parent = g.append("circle")
-    .datum(root)
-    .attr("r", radius)
-    .attr("fill", "none")
-    .attr("pointer-events", "all")
-    .on("click", clicked);
-
-  function clicked(p) {
-    parent.datum(p.parent || root);
-
-    root.each(d => d.target = {
-      x0: Math.max(0, Math.min(1, (d.x0 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
-      x1: Math.max(0, Math.min(1, (d.x1 - p.x0) / (p.x1 - p.x0))) * 2 * Math.PI,
-      y0: Math.max(0, d.y0 - p.depth),
-      y1: Math.max(0, d.y1 - p.depth)
-    });
-
-    let t = g.transition().duration(750);
-
-    // Transition the data on all arcs, even the ones that aren’t visible,
-    // so that if this transition is interrupted, entering arcs will start
-    // the next transition from the desired position.
-    path.transition(t)
-      .tween("data", d => {
-        const i = d3.interpolate(d.current, d.target);
-        return t => d.current = i(t);
-      })
-      .filter(function(d) {
-        return +this.getAttribute("fill-opacity") || arcVisible(d.target);
-      })
-      .attr("fill-opacity", d => arcVisible(d.target) ? (d.children ? 0.6 : 0.4) : 0)
-      .attrTween("d", d => () => arc(d.current));
-
-    label.filter(function(d) {
-      return +this.getAttribute("fill-opacity") || labelVisible(d.target);
-    }).transition(t)
-    .attr("fill-opacity", d => +labelVisible(d.target))
-    .attrTween("transform", d => () => labelTransform(d.current));
-  }
-  
-  function arcVisible(d) {
-    return d.y1 <= 3 && d.y0 >= 1 && d.x1 > d.x0;
-  }
-
-  function labelVisible(d) {
-    return d.y1 <= 3 && d.y0 >= 1 && (d.y1 - d.y0) * (d.x1 - d.x0) > 0.03;
-  }
-
-  function labelTransform(d) {
-    let x = (d.x0 + d.x1) / 2 * 180 / Math.PI;
-    let y = (d.y0 + d.y1) / 2 * radius;
-    return `rotate(${x - 90}) translate(${y},0) rotate(${x < 180 ? 0 : 180})`;
-  }
-
-  return svgSunburst.node();
-});
-
-// Organize Function
-partition = data => {
-  let root = d3.hierarchy(data)
-      .sum(d => d.value)
-      .sort((a, b) => a.value - b.value);
-  return d3.partition()
-      .size([2 * Math.PI, root.height + 1])
-    (root);
+  // d3 = require("d3@5");
 };
-
-// Format Attributes
-color = data => {
-  d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
-};
-
-format = d3.format(",d");
-
-width = 450;
-
-radius = width / 6;
-
-arc = d3.arc()
-  .startAngle(d => d.x0)
-  .endAngle(d => d.x1)
-  .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
-  .padRadius(radius * 1.5)
-  .innerRadius(d => d.y0 * radius)
-  .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
-
-// d3 = require("d3@5");
 
 ///////////////////////////////////
 /////////// Bullet Chart //////////
@@ -432,132 +436,147 @@ var bulletChart = d3.bullet()
     .width(width)
     .height(height);
 
-d3.json(dataURL).then(dataBullet => {
-  let bestSong = dataBullet.reduce( (previous, current) => {
-    return ( (200 - previous.index) > (200 - current.index) ? previous : current);
-  });
-  
-  console.log(bestSong);
-
-  function bulletRangeFinder(category) {
-    let min = dataBullet.reduce( (previous, current) => {
-      return ( (previous[category]) < (current[category]) ? previous : current);
+function generateBullet(selectedYear) {
+  d3.select('.bullet-chart').html('');
+  d3.json(dataURL).then(dataBullet => {
+    let filteredBullet = dataBullet.filter(x => x.year == selectedYear);
+    let bestSong = filteredBullet.reduce( (previous, current) => {
+      return ( (200 - previous.index) > (200 - current.index) ? previous : current);
     });
-    let max = dataBullet.reduce( (previous, current) => {
-      return ( (previous[category]) > (current[category]) ? previous : current);
-    });
-    let mean = dataBullet.reduce( (total, next) => total + next[category], 0) / dataBullet.length;
-    return [min[category], mean, max[category]];
-  };
+    
+    console.log(bestSong);
 
-  function artistAverage(artistName, category) {
-    let selection = dataBullet.filter(song => song.artists == artistName);
-    let average = selection.reduce( (total, next) => total + next[category], 0) / selection.length;
-    return [average];
-  };
-  
-  function bulletFormat(x) {
-    return [
-      {
-        "title":"Acousticness",
-        "subtitle":"no electrial amplification",
-        "ranges":bulletRangeFinder("acousticness"),
-        "measures":[x.acousticness],
-        "markers":artistAverage(x.artists, "acousticness")
-      },
-      {
-        "title":"Danceability",
-        "subtitle":"suitability for dancing based on tempo, rhythm stability, beat strength, and overall regularity",
-        "ranges":bulletRangeFinder("danceability"),
-        "measures":[x.danceability],
-        "markers":artistAverage(x.artists, "danceability")
-      },
-      {
-        "title":"Duration",
-        "subtitle":"seconds",
-        "ranges":bulletRangeFinder("duration_ms").map(d => d/1000),
-        "measures":[x.duration_ms].map(d => d/1000),
-        "markers":artistAverage(x.artists, "duration_ms").map(d => d/1000)
-      },
-      {
-        "title":"Energy",
-        "subtitle":"perceptual measure of intensity and activity",
-        "ranges":bulletRangeFinder("energy"),
-        "measures":[x.energy],
-        "markers":artistAverage(x.artists, "energy")
-      },
-      {
-        "title":"Speechiness",
-        "subtitle":"presence of spoken words",
-        "ranges":bulletRangeFinder("speechiness"),
-        "measures":[x.speechiness],
-        "markers":artistAverage(x.artists, "speechiness")
-      },
-      {
-        "title":"Tempo",
-        "subtitle":"BPM",
-        "ranges":bulletRangeFinder("tempo"),
-        "measures":[x.tempo],
-        "markers":artistAverage(x.artists, "tempo")
-      },
-      {
-        "title":"Valence",
-        "subtitle":"musical positiveness",
-        "ranges":bulletRangeFinder("valence"),
-        "measures":[x.valence],
-        "markers":artistAverage(x.artists, "valence")
-      }
-    ];
-  };
+    function bulletRangeFinder(category) {
+      let min = filteredBullet.reduce( (previous, current) => {
+        return ( (previous[category]) < (current[category]) ? previous : current);
+      });
+      let max = filteredBullet.reduce( (previous, current) => {
+        return ( (previous[category]) > (current[category]) ? previous : current);
+      });
+      let mean = filteredBullet.reduce( (total, next) => total + next[category], 0) / filteredBullet.length;
+      return [min[category], mean, max[category]];
+    };
 
-  let bestBullet = bulletFormat(bestSong);
+    function artistAverage(artistName, category) {
+      let selection = filteredBullet.filter(song => song.artists == artistName);
+      let average = selection.reduce( (total, next) => total + next[category], 0) / selection.length;
+      return [average];
+    };
+    
+    function bulletFormat(x) {
+      return [
+        {
+          "title":"Acousticness",
+          "subtitle":"no electrial amplification",
+          "ranges":bulletRangeFinder("acousticness"),
+          "measures":[x.acousticness],
+          "markers":artistAverage(x.artists, "acousticness")
+        },
+        {
+          "title":"Danceability",
+          "subtitle":"suitability for dancing based on tempo, rhythm stability, beat strength, and overall regularity",
+          "ranges":bulletRangeFinder("danceability"),
+          "measures":[x.danceability],
+          "markers":artistAverage(x.artists, "danceability")
+        },
+        {
+          "title":"Duration",
+          "subtitle":"seconds",
+          "ranges":bulletRangeFinder("duration_ms").map(d => d/1000),
+          "measures":[x.duration_ms].map(d => d/1000),
+          "markers":artistAverage(x.artists, "duration_ms").map(d => d/1000)
+        },
+        {
+          "title":"Energy",
+          "subtitle":"perceptual measure of intensity and activity",
+          "ranges":bulletRangeFinder("energy"),
+          "measures":[x.energy],
+          "markers":artistAverage(x.artists, "energy")
+        },
+        {
+          "title":"Speechiness",
+          "subtitle":"presence of spoken words",
+          "ranges":bulletRangeFinder("speechiness"),
+          "measures":[x.speechiness],
+          "markers":artistAverage(x.artists, "speechiness")
+        },
+        {
+          "title":"Tempo",
+          "subtitle":"BPM",
+          "ranges":bulletRangeFinder("tempo"),
+          "measures":[x.tempo],
+          "markers":artistAverage(x.artists, "tempo")
+        },
+        {
+          "title":"Valence",
+          "subtitle":"musical positiveness",
+          "ranges":bulletRangeFinder("valence"),
+          "measures":[x.valence],
+          "markers":artistAverage(x.artists, "valence")
+        }
+      ];
+    };
 
-  console.log(bestBullet);
+    let bestBullet = bulletFormat(bestSong);
 
-  var bulletName = d3.select('#index-subtitle-bullet')
-  bulletName.html('');
-  bulletName.text(`${bestSong.name} by ${bestSong.artists}`);
+    console.log(bestBullet);
 
-  var svgBullet = d3.select(".bullet-chart").selectAll("svg")
-      .data(bestBullet)
-    .enter().append("svg")
-      .attr("class", "bullet")
-      .attr("width", width + bulletMargin.left + bulletMargin.right)
-      .attr("height", height + bulletMargin.top + bulletMargin.bottom)
-    .append("g")
-      .attr("transform", "translate(" + bulletMargin.left + "," + bulletMargin.top + ")")
-      .call(bulletChart);
-
-  let title = svgBullet.append("g")
-      .style("text-anchor", "end")
-      .attr("transform", "translate(-6," + height / 2 + ")");
-
-  title.append("text")
-      .attr("class", "title")
-      .text(function(d) { return d.title; });
-
-  title.append("text")
-      .attr("class", "subtitle")
-      .attr("dy", "1em")
-      .text(function(d) { return d.subtitle; });
-
-  d3.selectAll(".sunburstSong").on("click", function() {
-    console.log(this.id);
-    var newBullet = dataBullet.filter(b => b.id == this.id)[0];
-    console.log(bulletFormat(newBullet));
+    var bulletName = d3.select('#index-subtitle-bullet')
     bulletName.html('');
-    bulletName.text(`${newBullet.name} by ${newBullet.artists}`);
-    var newData = bulletFormat(newBullet);
-    svgBullet.datum(function (d, i) {
-      d.ranges = newData[i].ranges;
-      d.measures = newData[i].measures;
-      d.markers = newData[i].markers;
-      return d;
-    }).call(bulletChart.duration(1000)); // TODO automatic transition
+    bulletName.text(`${bestSong.name} by ${bestSong.artists}`);
+
+    var svgBullet = d3.select(".bullet-chart").selectAll("svg")
+        .data(bestBullet)
+      .enter().append("svg")
+        .attr("class", "bullet")
+        .attr("width", width + bulletMargin.left + bulletMargin.right)
+        .attr("height", height + bulletMargin.top + bulletMargin.bottom)
+      .append("g")
+        .attr("transform", "translate(" + bulletMargin.left + "," + bulletMargin.top + ")")
+        .call(bulletChart);
+
+    let title = svgBullet.append("g")
+        .style("text-anchor", "end")
+        .attr("transform", "translate(-6," + height / 2 + ")");
+
+    title.append("text")
+        .attr("class", "title")
+        .text(function(d) { return d.title; });
+
+    title.append("text")
+        .attr("class", "subtitle")
+        .attr("dy", "1em")
+        .text(function(d) { return d.subtitle; });
+
+    d3.selectAll(".sunburstSong").on("click", function() {
+      console.log(this.id);
+      var newBullet = filteredBullet.filter(b => b.id == this.id)[0];
+      console.log(bulletFormat(newBullet));
+      bulletName.html('');
+      bulletName.text(`${newBullet.name} by ${newBullet.artists}`);
+      var newData = bulletFormat(newBullet);
+      svgBullet.datum(function (d, i) {
+        d.ranges = newData[i].ranges;
+        d.measures = newData[i].measures;
+        d.markers = newData[i].markers;
+        return d;
+      }).call(bulletChart.duration(1000)); // TODO automatic transition
+    });
   });
+};
+
+///////////////////////////////////
+////////// Year Dropdown //////////
+///////////////////////////////////
+
+generateSunburst('2017');
+generateBullet('2017');
+
+$('#sunburst-year').on('change', function() {
+  console.log(this.value);
+  generateSunburst(this.value);
+  generateBullet(this.value);
 });
-
-
 
 ///////////////////////////////////////////////////////////////////
 ///////////////// Top Spotify Songs Visualization /////////////////
