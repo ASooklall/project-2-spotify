@@ -66,7 +66,7 @@ function generateSunburst(selectedYear) {
       .style("font", "10px sans-serif");
 
     var g = svgSunburst.append("g")
-      .attr("transform", `translate(${width / 2},${width / 2})`);
+      .attr("transform", `translate(${width / 2},${width / 2.5})`);
 
     var path = g.append("g")
       .selectAll("path")
@@ -171,7 +171,7 @@ function generateSunburst(selectedYear) {
 
   format = d3.format(",d");
 
-  width = 450;
+  width = 570;
 
   radius = width / 6;
 
@@ -467,7 +467,7 @@ function generateBullet(selectedYear) {
       return [
         {
           "title":"Popularity",
-          "subtitle":"",
+          "subtitle":"play frequency, etc.",
           "ranges":bulletRangeFinder("popularity"),
           "measures":[x.popularity],
           "markers":artistAverage(x.artists, "popularity")
