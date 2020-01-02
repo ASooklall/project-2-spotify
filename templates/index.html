@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <div class="row" id="button-container">
+        <!-- <div class="row" id="button-container">
             <div class="dropdown">
                 <button class="btn btn-secondary btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Dropdown button
@@ -81,32 +81,32 @@
                   <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="row">
             <div class="col-md-12">
                 <h3 class="sub-title" id="index-subtitle">Sunburst Visualization</h3>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <label>Select Year:</label>
+        <div class="row" id="button-container">
+            <div class="col-md-8">
+                <label class="year-label">Select Year:</label>
                 <div id="prm">
                     <select id="sunburst-year">
-                        <option>2017</option>
-                        <option>2018</option>
                         <option>2019</option>
+                        <option>2018</option>
+                        <option>2017</option>
                     </select>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6">
-                <div class="sunburst">
+            <div class="col-md-8">
+                <div class="sunburst"style="width:90%;height:800px;border:1px solid;border-color:#black;">
                 </div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <h3 class="sub-title" id="index-subtitle-bullet">Bullet Chart</h3>
-                <div class="container" style='width: 480px'>
+                <div class="container" style='width: 90%; min-width:480px; min-height:600px; max-height:800px;'>
                     <div class="bullet-chart">
                     </div>
                 </div>
