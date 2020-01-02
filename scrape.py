@@ -34,6 +34,7 @@ def run_scrape():
         ''' searches by track, pulls 10 albums
             if artist in album matches artist param,
             RETURNS: [artist, track, song-id]'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
         # search by track name
@@ -53,6 +54,7 @@ def run_scrape():
     def search_by_artist(artist, track):
         ''' returns correct track by artist to use in
             search_by_track'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
 
@@ -67,12 +69,13 @@ def run_scrape():
         for song in top_10:
             possible_song = song['name']
             # matches enough, match found
-            if track[:2] == possible_song[:2]:
+            if track[:2] == possible_song[:2] or track[-3:] == possible_song[-3:]:
                 track = possible_song
                 return track
 
     def grab_genre(artist):
         ''' returns a genre of artist'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
 
@@ -261,10 +264,134 @@ def run_scrape():
         df = del_mult_genres(df)
 
 
+    ###################################
+    ##### Correct 2017, 2018 Data ####
+    #################################
+
+    print("AT FIXING 2017-2018 DATA")
+
+    #### Helper functions ####
+    def fix_id(track, artist):
+        ''' searches by track, pulls 10 albums if artist in album matches artist param, RETURNS: [artist, track, song-id]'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+        # create spotipy object
+        sp = spotipy.Spotify(auth=token)
+        # search by track name
+        result = sp.search(q=track, type='track')
+
+        # save first 10 results
+        first_ten_albums = result['tracks']['items']
+        # loop through each album
+        for album in first_ten_albums:
+            # extract artist of each album
+            possible_artist = album['album']['artists'][0]['name']
+            # see if album artist matches query artist
+            if possible_artist == artist:
+                # match found, add to song-ids
+                value = result['tracks']['items'][0]['id']
+                return value
+
+    def fix_dataframe_values(dataframe):
+        ''' corrects IDs , incorrect tracks '''
+        for i, column in dataframe.iterrows():
+            track = column['name']
+            artist = column['artists']
+            try:
+                correct_id = fix_id(track,artist)
+                print('correct id', correct_id)
+                if correct_id != None:
+                    dataframe.loc[i, 'id'] = correct_id
+                if correct_id == None:
+                    token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+                    sp = spotipy.Spotify(auth=token)
+                    # search by track name
+                    result = sp.search(q=track, type='track')
+                    correct_id = result['tracks']['items'][0]['id']
+                    print("nones correct id is now: ", correct_id)
+                    dataframe.loc[i, 'id'] = correct_id
+
+
+            except IndexError:
+                print('COULDNT FIND', track, ' by ', artist)
+                correct_track = search_by_artist(artist, track)
+                print('track is now', correct_track)
+                if correct_track != None:
+                    dataframe.loc[i, 'name'] = correct_track
+                    correct_id = fix_id(correct_track, artist)
+                    if correct_id != None:
+                        dataframe.loc[i, 'id'] = correct_id
+                    else:
+                        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+                        sp = spotipy.Spotify(auth=token)
+                        # search by track name
+                        result = sp.search(q=correct_track, type='track')
+                        correct_id = result['tracks']['items'][0]['id']
+                        print("nones correct id is now: ", correct_id)
+                        dataframe.loc[i, 'id'] = correct_id
+                else:
+                    track = track.split()[0]
+                    correct_id = fix_id(track,artist)
+                    print("found justing", correct_id)
+                print()
+                print()
+
+        return dataframe
+
+    #### Run on Dataframes 2017 & 2018 ####
+    print("Running change of dataframe values functions on 2017")
+    top_2017_df = fix_dataframe_values(top_2017_df)
+    print("Finished with 2017")
+    print()
+    print("Running change of dataframe values functions on 2018")
+    top_2018_df = fix_dataframe_values(top_2018_df)
+    print("Finished with 2018")
+    print()
+
+    #######################################
+    #### Adding Popularity to table ##
+    #####################################
+
+    ### helper functions ###
+    print()
+    print("Reading popularity helper functions")
+    print()
+    def find_popularity(track_id):
+        ''' uses track id to find popularity value '''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+        sp = spotipy.Spotify(auth=token)
+        result = sp.track(track_id)
+        popularity = result['popularity']
+
+        return popularity
+
+    def add_popularity_to_df(dataframe):
+        for i, column in dataframe.iterrows():
+            track_id = column['id']
+            #print("track id is: ", track_id)
+            popularity = find_popularity(track_id)
+            #print(popularity)
+            dataframe.loc[i, 'popularity'] = popularity
+
+        return dataframe
+
+
+    #### Run on our dataframes
+    for df in each_df:
+        print()
+        print("finding popularity for", df)
+        print()
+        df = add_popularity_to_df(df)
+        print()
+        print("finished popularity for", df)
+        print()
 
     #########################
     ## save DFs as excel ####
     #######################
+    print("Saving DF to excels")
     top_2017_df.to_excel('static/data/top2017_clean.xlsx', index=False)
     top_2018_df.to_excel('static/data/top2018_clean.xlsx', index=False)
     top_2019_df.to_excel('static/data/top2019_clean.xlsx', index=False)
