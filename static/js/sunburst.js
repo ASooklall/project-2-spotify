@@ -425,7 +425,7 @@ arc = d3.arc()
   })();
 
 var bulletMargin = {top: 5, right: 40, bottom: 20, left: 120},
-    width = 960 - bulletMargin.left - bulletMargin.right,
+    width = 480 - bulletMargin.left - bulletMargin.right,
     height = 50 - bulletMargin.top - bulletMargin.bottom;
 
 var bulletChart = d3.bullet()
@@ -474,10 +474,10 @@ d3.json(dataURL).then(dataBullet => {
       },
       {
         "title":"Duration",
-        "subtitle":"ms",
-        "ranges":bulletRangeFinder("duration_ms"),
-        "measures":[x.duration_ms],
-        "markers":artistAverage(x.artists, "duration_ms")
+        "subtitle":"seconds",
+        "ranges":bulletRangeFinder("duration_ms").map(d => d/1000),
+        "measures":[x.duration_ms].map(d => d/1000),
+        "markers":artistAverage(x.artists, "duration_ms").map(d => d/1000)
       },
       {
         "title":"Energy",
