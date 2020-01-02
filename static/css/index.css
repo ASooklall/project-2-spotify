@@ -34,7 +34,7 @@ div.tooltip {
 }
 
 #button-container {
-    padding-top: 100px;
+    padding-top: 30px;
     padding-bottom:20px;
     position: relative;
     text-align:center;
@@ -43,8 +43,6 @@ div.tooltip {
 .sunburst {
     width:90%;
     height:800px;
-    border:1px solid;
-    border-color: black;
 }
 
 .bullet-container{
