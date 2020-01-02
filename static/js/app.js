@@ -144,7 +144,8 @@ console.log(radiusScale(300000));
       r           : scaledRadius,
       name        : d.name,
       genre       : d.genre,
-      id          : d.id
+      id          : d.id,
+      popularity  : d.popularity
     };
     // add to clusters array if it doesn't exist or the radius is larger than another radius in the cluster
     if (!clusters[forcedCluster] || (scaledRadius > clusters[forcedCluster].r)) clusters[forcedCluster] = d;
@@ -173,7 +174,7 @@ console.log(radiusScale(300000));
             div.transition()    
                 .duration(200)    
                 .style("opacity", .9);    
-            div .html( "<b>Song: </b>" + d.name + "<br/><b>Genre: </b>" + d.genre + "<br/><b>Popularity: </b>")  
+            div .html( "<b>Song: </b>" + d.name + "<br/><b>Genre: </b>" + d.genre + "<br/><b>Popularity: </b>" + d.popularity)  
                 .style("left", (d3.event.pageX) + "px")   
                 .style("top", (d3.event.pageY - 28) + "px");  
             })          
