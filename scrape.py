@@ -34,6 +34,7 @@ def run_scrape():
         ''' searches by track, pulls 10 albums
             if artist in album matches artist param,
             RETURNS: [artist, track, song-id]'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
         # search by track name
@@ -53,6 +54,7 @@ def run_scrape():
     def search_by_artist(artist, track):
         ''' returns correct track by artist to use in
             search_by_track'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
 
@@ -67,12 +69,13 @@ def run_scrape():
         for song in top_10:
             possible_song = song['name']
             # matches enough, match found
-            if track[:2] == possible_song[:2]:
+            if track[:2] == possible_song[:2] or track[-3:] == possible_song[-3:]:
                 track = possible_song
                 return track
 
     def grab_genre(artist):
         ''' returns a genre of artist'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
         # create spotipy object
         sp = spotipy.Spotify(auth=token)
 
@@ -261,10 +264,76 @@ def run_scrape():
         df = del_mult_genres(df)
 
 
+    ###################################
+    ##### Correct 2017, 2018 Data ####
+    #################################
+
+    print("AT FIXING 2017-2018 DATA")
+
+    #### Helper functions ####
+    def fix_id(track, artist):
+        ''' searches by track, pulls 10 albums if artist in album matches artist param, RETURNS: [artist, track, song-id]'''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+        # create spotipy object
+        sp = spotipy.Spotify(auth=token)
+        # search by track name
+        result = sp.search(q=track, type='track')
+
+        # save first 10 results
+        first_ten_albums = result['tracks']['items']
+        # loop through each album
+        for album in first_ten_albums:
+            # extract artist of each album
+            possible_artist = album['album']['artists'][0]['name']
+            # see if album artist matches query artist
+            if possible_artist == artist:
+                # match found, add to song-ids
+                value = result['tracks']['items'][0]['id']
+                return value
+
+    def fix_dataframe_values(dataframe):
+        ''' corrects IDs , incorrect tracks '''
+        for i, column in dataframe.iterrows():
+            track = column['name']
+            artist = column['artists']
+            try:
+                correct_id = fix_id(track,artist)
+                if correct_id != None:
+                    dataframe.loc[i, 'id'] = correct_id
+                if correct_id == None:
+                    sp = spotipy.Spotify(auth=token)
+                    # search by track name
+                    result = sp.search(q=track, type='track')
+                    correct_id = result['tracks']['items'][0]['id']
+                    dataframe.loc[i, 'id'] = correct_id
+            except IndexError:
+                correct_track = search_by_artist(artist, track)
+                if correct_track != None:
+                    dataframe.loc[i, 'name'] = correct_track
+                    correct_id = fix_id(correct_track, artist)
+                    dataframe.loc[i, 'id'] = correct_id
+                else:
+                    track = track.split()[0]
+                    correct_id = fix_id(track,artist)
+
+        return dataframe
+
+    #### Run on Dataframes 2017 & 2018 ####
+    print("Running change of dataframe values functions on 2017")
+    top_2017_df = fix_dataframe_values(top_2017_df)
+    print("Finished with 2017")
+    print()
+    print("Running change of dataframe values functions on 2018")
+    top_2018_df = fix_dataframe_values(top_2018_df)
+    print("Finished with 2018")
+    print()
+
 
     #########################
     ## save DFs as excel ####
     #######################
+    print("Saving DF to excels")
     top_2017_df.to_excel('static/data/top2017_clean.xlsx', index=False)
     top_2018_df.to_excel('static/data/top2018_clean.xlsx', index=False)
     top_2019_df.to_excel('static/data/top2019_clean.xlsx', index=False)
