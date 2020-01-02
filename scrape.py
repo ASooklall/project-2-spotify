@@ -299,23 +299,44 @@ def run_scrape():
             artist = column['artists']
             try:
                 correct_id = fix_id(track,artist)
+                print('correct id', correct_id)
                 if correct_id != None:
                     dataframe.loc[i, 'id'] = correct_id
                 if correct_id == None:
+                    token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
                     sp = spotipy.Spotify(auth=token)
                     # search by track name
                     result = sp.search(q=track, type='track')
                     correct_id = result['tracks']['items'][0]['id']
+                    print("nones correct id is now: ", correct_id)
                     dataframe.loc[i, 'id'] = correct_id
+
+
             except IndexError:
+                print('COULDNT FIND', track, ' by ', artist)
                 correct_track = search_by_artist(artist, track)
+                print('track is now', correct_track)
                 if correct_track != None:
                     dataframe.loc[i, 'name'] = correct_track
                     correct_id = fix_id(correct_track, artist)
-                    dataframe.loc[i, 'id'] = correct_id
+                    if correct_id != None:
+                        dataframe.loc[i, 'id'] = correct_id
+                    else:
+                        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+                        sp = spotipy.Spotify(auth=token)
+                        # search by track name
+                        result = sp.search(q=correct_track, type='track')
+                        correct_id = result['tracks']['items'][0]['id']
+                        print("nones correct id is now: ", correct_id)
+                        dataframe.loc[i, 'id'] = correct_id
                 else:
                     track = track.split()[0]
                     correct_id = fix_id(track,artist)
+                    print("found justing", correct_id)
+                print()
+                print()
 
         return dataframe
 

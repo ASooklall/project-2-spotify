@@ -8,7 +8,7 @@ id,name,artists,danceability,energy,key,loudness,mode,speechiness,acousticness,i
 3eR23VReFzcdmS7TYCrhC,It Ain't Me (with Selena Gomez),Kygo,0.64,0.533,0,-6.596,1,0.0706,0.119,0,0.0864,0.515,99.968,220781,4,2017
 3B54sVLJ402zGa6Xm4YGN,Unforgettable,French Montana,0.726,0.769,6,-5.043,1,0.123,0.0293,0.0101,0.104,0.733,97.985,233902,4,2017
 0KKkJNfGyhkQ5aFogxQAP,That's What I Like,Bruno Mars,0.853,0.56,1,-4.961,1,0.0406,0.013,0,0.0944,0.86,134.066,206693,4,2017
-3NdDpSvN911VPGivFlV5d,"I DonÅEÄÅEt Wanna Live Forever (Fifty Shades Darker) - From ""fty Shades Darker (Original Motion Picture Soundtrack)""""",ZAYN,0.735,0.451,0,-8.374,1,0.0585,0.0631,1.30E-05,0.325,0.0862,117.973,245200,4,2017
+3NdDpSvN911VPGivFlV5d,I Don’t Wanna Live Forever (Fifty Shades Darker),ZAYN,0.735,0.451,0,-8.374,1,0.0585,0.0631,1.30E-05,0.325,0.0862,117.973,245200,4,2017
 7GX5flRQZVHRAGd6B4TmD,XO TOUR Llif3,Lil Uzi Vert,0.732,0.75,11,-6.366,0,0.231,0.00264,0,0.109,0.401,155.096,182707,4,2017
 72jbDTw1piOOj770jWNea,Paris,The Chainsmokers,0.653,0.658,2,-6.428,1,0.0304,0.0215,1.66E-06,0.0939,0.219,99.99,221507,4,2017
 0dA2Mk56wEzDgegdC6R17,Stay (with Alessia Cara),Zedd,0.679,0.634,5,-5.024,0,0.0654,0.232,0,0.115,0.498,102.013,210091,4,2017
