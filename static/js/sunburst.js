@@ -514,6 +514,10 @@ d3.json(dataURL).then(dataBullet => {
 
   console.log(bestBullet);
 
+  var bulletName = d3.select('#index-subtitle-bullet')
+  bulletName.html('');
+  bulletName.text(`${bestSong.name} by ${bestSong.artists}`);
+
   var svgBullet = d3.select(".bullet-chart").selectAll("svg")
       .data(bestBullet)
     .enter().append("svg")
@@ -541,6 +545,8 @@ d3.json(dataURL).then(dataBullet => {
     console.log(this.id);
     var newBullet = dataBullet.filter(b => b.id == this.id)[0];
     console.log(bulletFormat(newBullet));
+    bulletName.html('');
+    bulletName.text(`${newBullet.name} by ${newBullet.artists}`);
     var newData = bulletFormat(newBullet);
     svgBullet.datum(function (d, i) {
       d.ranges = newData[i].ranges;
