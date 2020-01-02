@@ -44,7 +44,7 @@ top_df.to_sql('spotify', con=engine, if_exists='replace', index=True)
 
 test = engine.execute("SELECT * FROM spotify LIMIT 1").fetchall()
 
-print (test)
+# print (test)
 
 ##########################################################
 ####################### End Script #######################
