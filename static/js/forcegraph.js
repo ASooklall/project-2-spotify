@@ -18,90 +18,6 @@ var dataURL = '/top_data'
 console.log(dataURL)
 
 
-// var tooltip = appSelect
-// 	.append("div")
-// 	.attr("class", "tooltip")
-// 	.style("opacity", 0);
-
-
-// d3.json(dataURL).then(data => {
-//     console.log(data)
-
-
-// var width = 960;
-// var height = 500;
-// var maxRadius = 12;
-
-// var n = 250; // total number of circles
-// var m = 10; // number of distinct clusters
-
-// var color = d3.scaleOrdinal(d3.schemeCategory10)
-//     .domain(d3.range(m));
-
-// var div = appSelect.append("div") 
-// .attr("class", "tooltip")       
-// .style("opacity", 0);
-
-
-// // The largest node for each cluster.
-// var clusters = new Array(m);
-
-// var nodes = d3.range(n).map(function() {
-//   var i = Math.floor(Math.random() * m),
-//       r = Math.sqrt((i + 1) / m * -Math.log(Math.random())) * maxRadius,
-//       d = {cluster: i, radius: r};
-//   if (!clusters[i] || (r > clusters[i].radius)) clusters[i] = d;
-//   return d;
-// });
-
-// var forceCollide = d3.forceCollide()
-//     .radius(function(d) { return d.radius + 1.5; })
-//     .iterations(1);
-
-// var force = d3.forceSimulation()
-//     .nodes(nodes)
-//     .force("center", d3.forceCenter())
-//     .force("collide", forceCollide)
-//     .force("cluster", forceCluster)
-//     .force("gravity", d3.forceManyBody(30))
-//     .force("x", d3.forceX().strength(.7))
-//     .force("y", d3.forceY().strength(.7))
-//     .on("tick", tick);
-
-// var svg = appSelect.append("svg")
-//     .attr("width", width)
-//     .attr("height", height)
-//     .append('g')
-//     .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
-
-// var circle = svg.selectAll("circle")
-//     .data(nodes)
-//     .enter()
-//     .append("circle")
-//     .attr("r", function(d) { return d.radius; })
-//     .style("fill", function(d) { return color(d.cluster); })
-//     .on("mouseover", function(d) {
-//         div.transition()    
-//             .duration(200)    
-//             .style("opacity", .9);    
-//         div.html( "hi")  
-//             .style("left", (d3.event.pageX) + "px")   
-//             .style("top", (d3.event.pageY - 28) + "px");  
-//         })          
-//     .on("mouseout", function(d) {   
-//         div.transition()    
-//             .duration(500)    
-//             .style("opacity", 0); 
-//     });
-
-
-
-
-
-
-
-// var margin = {top: 100, right: 100, bottom: 100, left: 100};
-
 var width = window.innerWidth,
     height = 700,
     padding = 1.5, // separation between same-color circles
@@ -125,17 +41,18 @@ var div = d3.select("body").append("div")
     .attr("class", "tooltip")       
     .style("opacity", 0);
 
-//load college major data
+//load data
 d3.json(dataURL).then(d => {
+  var radiusEquation = (d.popularity/100)*(d.popularity/100)
   var radiusScale = d3.scaleLinear()
-    .domain(d3.extent(d, function(d) { return +d.energy*100;} ))
+    .domain(d3.extent(d, function(d) { return +d.popularity*d.popularity*d.popularity/100;} ))
     .range([4, maxRadius]);
 
 console.log(radiusScale(300000));
 
   var nodes = d.map((d) => {
     // scale radius to fit on the screen
-    var scaledRadius  = radiusScale(+d.energy*100),
+    var scaledRadius  = radiusScale(+d.popularity*d.popularity*d.popularity/100),
         forcedCluster = +d.genre;
 
     // add cluster id and radius to array
@@ -280,61 +197,12 @@ console.log(radiusScale(300000));
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function tick() {
-//   circle
-//       .attr("cx", function(d) { return d.x; })
-//       .attr("cy", function(d) { return d.y; });
-// }
-
-// function forceCluster(alpha) {
-//   for (var i = 0, n = nodes.length, node, cluster, k = alpha * 1; i < n; ++i) {
-//     node = nodes[i];
-//     cluster = clusters[node.cluster];
-//     node.vx -= (node.x - cluster.x) * k;
-//     node.vy -= (node.y - cluster.y) * k;
-//   }
-// }
-
-
-// })
-
-
-
 ///////////////////////////////////
 ////////// SDK Play Music /////////
 ///////////////////////////////////
 
-
+console.log("----------------------------")
+console.log("begin SDK Here")
 
 
 
@@ -346,7 +214,7 @@ console.log(radiusScale(300000));
 
 
 console.log("end app.js here!!")
-
+console.log("----------------------------")
 
 
 
