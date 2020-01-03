@@ -9,6 +9,7 @@
 
 // Sunburst Function
 dataURL = '/top_data';
+
 function generateSunburst(selectedYear) {
   d3.select('.sunburst').html('');
   d3.json(dataURL).then(dataBurst => {
@@ -16,7 +17,7 @@ function generateSunburst(selectedYear) {
 
     console.log(filteredBurst);
 
-    dataTree = {
+    let dataTree = {
       type: 'sunburstTitle',
       name: 'Spotify',
       children: []
@@ -32,7 +33,7 @@ function generateSunburst(selectedYear) {
       };
 
       dataTree.children.forEach(childGenre => {
-        if (!childGenre.children.some(c => c.name == song.artists && childGenre.name == song.genre)) {
+        if (!childGenre.children.some(c => c.name == song.artists) && childGenre.name == song.genre) {
           childGenre.children.push({
             type: 'sunburstArtist',
             name: song.artists,
