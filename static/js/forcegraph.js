@@ -101,6 +101,7 @@ d3.json(dataURL).then(d => {
       .enter().append('circle')
         .attr('r', (d) => d.r)
         .attr('fill', (d) => z(d.cluster))
+        .attr('fill-opacity',0.65)
         .attr('stroke', 'black')
         .attr('stroke-width', 1)
         .call(d3.drag()
