@@ -17,7 +17,7 @@ var appSelect = d3.select(".force-graph")
 var dataURL = '/top_data'
 console.log(dataURL)
 
-
+// set initial variables
 var width = window.innerWidth,
     height = 700,
     padding = 1.5, // separation between same-color circles
@@ -26,7 +26,6 @@ var width = window.innerWidth,
 
 var n = 200; // total number of nodes
 var m = 10; // number of distinct clusters
-// let z = d3.scaleOrdinal(d3.schemeCategory10);
 var z = d3.scaleOrdinal(d3.schemeCategory10).domain(d3.range(m));
 var clusters = new Array(m);
 
@@ -45,38 +44,33 @@ var div = d3.select("body").append("div")
 d3.json(dataURL).then(d => {
 
 
-
-
-
-
-
-
+  // set radius scale
   var radiusScale = d3.scaleLinear()
     .domain(d3.extent(d, function(d) { return +d.popularity*d.popularity*d.popularity/100;} ))
     .range([4, maxRadius]);
 
-console.log(radiusScale(300000));
-var genreCode = {}
-var genreCounter = 1
+// console.log(radiusScale(300000));
+
+  // add placeholder variables for genre chromatic code
+  var genreCode = {}
+  var genreCounter = 1
+  
+  // map each node
   var nodes = d.map((d) => {
 
-
-
-
-    // d.forEach(z => {
+      // match genre to an integer code for the chromatic scale
       if (!(d.genre in genreCode)) {
         genreCode[d.genre] = genreCounter
         genreCounter++
       }
-    // })
-    console.log(genreCode)
+
+    // console.log(genreCode)
 
 
 
     // scale radius to fit on the screen
     var scaledRadius  = radiusScale(+d.popularity*d.popularity*d.popularity/100),
         forcedCluster = +genreCode[d.genre];
-        // forcedCluster = +d.genre;
 
     // add cluster id and radius to array
     d = {
@@ -92,7 +86,11 @@ var genreCounter = 1
 
     return d;
   });
-  
+
+
+  // console.log((d) => d.cluster)
+  // Object.keys(genreCode).forEach(color => {console.log(color, z(color.value))});
+
 
   // append the circles to svg then style
   // add functions for interaction
@@ -114,7 +112,7 @@ var genreCounter = 1
             div.transition()    
                 .duration(200)    
                 .style("opacity", .9);    
-            div .html( "<b>Song: </b>" + d.name + "<br/><b>Genre: </b>" + d.genre + "<br/><b>Popularity: </b>" + d.popularity)  
+            div.html( "<b>Song: </b>" + d.name + "<br/><b>Genre: </b>" + d.genre + "<br/><b>Popularity: </b>" + d.popularity)  
                 .style("left", (d3.event.pageX) + "px")   
                 .style("top", (d3.event.pageY - 28) + "px");  
             })          
@@ -212,6 +210,34 @@ var genreCounter = 1
     });
   }
 
+  // Populate Legend with keys and colors
+
+  // d3.select("#legend-row1").html("");
+  // d3.select("#legend-row2").html("");
+
+  // var legendSelect = d3.select(".legend-container")
+  // var legend = legendSelect
+  // .data(genreCode)
+  // .selectAll("p")
+  // .enter()
+  // .append("div")
+  // .attr("class", "col-md-3")
+  // .attr("class","legend-text")
+  // .html("<p>test</p>")
+
+
+
+
+var legendRow = d3.select(".legend-container").append("div").attr("class","row legendRow offset-1")
+
+  Object.keys(genreCode).forEach(color => {
+    // console.log(color, z(genreCode[color]))
+    var legendCol = legendRow.append("div").attr("class","col-md-1 legendCol")
+    var legendText = legendCol.append("p")  .attr("class","legendText")
+    legendText
+    .html(`${color}`)
+    .attr("style", `color:${z(genreCode[color])};`)
+  })
 
 });
 

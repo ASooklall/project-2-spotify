@@ -21,11 +21,24 @@ div.tooltip {
     background: lightgrey; 
     border: 0px;    
     border-radius: 8px;     
-    pointer-events: none;     
+    pointer-events: none;    
+    text-transform: capitalize; 
   }
 
 .container {
     background-color: #a1a09d;
+}
+
+
+.legend-container {
+    padding-top:10px;
+    vertical-align: center;
+    width:50%;
+    margin-left:25%;
+    padding-bottom:5px;
+    background-color:#000;
+    border: 3px round;
+    border-radius: 10px;
 }
 
 .legend-row {
