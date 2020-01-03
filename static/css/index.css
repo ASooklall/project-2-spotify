@@ -29,6 +29,18 @@ div.tooltip {
     background-color: #a1a09d;
 }
 
+
+.legend-container {
+    padding-top:10px;
+    vertical-align: center;
+    width:50%;
+    margin-left:25%;
+    padding-bottom:5px;
+    background-color:#000;
+    border: 3px round;
+    border-radius: 10px;
+}
+
 .legend-row {
     text-align: center;
     vertical-align: middle;
