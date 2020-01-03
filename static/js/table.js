@@ -12,41 +12,19 @@ var dataURL = '/top_data'
 var tbody = d3.select("tbody");
 
 
-
-  // append html to table after search filters
-// tbody.append('p').html("test");
-// tbody.append('p').html(dataURL);
-
-// // test to pull data
-// d3.json(dataURL, data => {
-//     // data.forEach(song =>{
-//     //     tbody.append('p').html(song.artists)
-//     // })
-//     // tbody.append('p').html(data[0].artists)
-//     console.log(data.filter(data => data.artists === 'Ed Sheeran'))
-//     test2 = data.filter(data =>data.artists === 'Ed Sheeran')
-//     test3 = test2.forEach((song) => {
-//         Object.entries(song).forEach(([key,value]) => {
-//             console.log(value)
-
-//         })
-//         console.log('-------')
-//     })
-// })
-
 ///////////////////////////////////
 //////// Initialize Table /////////
 ///////////////////////////////////
 
 // test
-d3.json(dataURL).then(data => {
-    test2 = data.filter(data => data.name === 'Shape of You')
-    test3 = test2[0].acousticness
-    test4 = typeof test3
-    console.log(test3)
-    console.log(test4)
-    console.log(data)
-});
+// d3.json(dataURL).then(data => {
+//     test2 = data.filter(data => data.name === 'Shape of You')
+//     test3 = test2[0].acousticness
+//     test4 = typeof test3
+//     console.log(test3)
+//     console.log(test4)
+//     console.log(data)
+// });
 
 
 // initialize table with data
@@ -59,7 +37,7 @@ function init() {
             var row = tbody.append("tr");
             Object.entries(song).forEach(([key, value]) => {
                 var cell = row.append("td");
-                if (typeof value == 'number'){
+                if (typeof value == 'number' && Number.isInteger(value) == false){
                     cell.text(value.toFixed(3))
                 }
                 else {
@@ -97,7 +75,7 @@ function handleSubmit() {
         console.log(data.filter(data => data.name === 'Shape of You'))
 
         // Checker For Filter
-        // CHecker For Song
+        // Checker For Song
         if (inputSong){
         var filteredSong = data.filter(data => data.name === inputSong)
         }
@@ -117,7 +95,6 @@ function handleSubmit() {
         }
         else {
         var filteredGenre = filteredArtist.filter(data => data.genre)
-
         };
         // Checker For Year
         if (inputYear){
@@ -133,9 +110,13 @@ function handleSubmit() {
             var row = tbody.append("tr");
             Object.entries(song).forEach(([key, value]) => {
                 var cell = row.append("td");
-                // cell.html(`<p>${value}</p>`);
-                // cell.text(value);
-                cell.append("p").html(value);
+                // cell.append("p").html(value);
+                if (typeof value == 'number' && Number.isInteger(value) == false){
+                    cell.text(value.toFixed(3))
+                }
+                else {
+                    cell.text(value);
+                }
             })
         })
     })
