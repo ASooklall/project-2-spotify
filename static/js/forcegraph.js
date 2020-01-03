@@ -49,7 +49,6 @@ d3.json(dataURL).then(d => {
     .domain(d3.extent(d, function(d) { return +d.popularity*d.popularity*d.popularity/100;} ))
     .range([4, maxRadius]);
 
-// console.log(radiusScale(300000));
 
   // add placeholder variables for genre chromatic code
   var genreCode = {}
@@ -63,10 +62,6 @@ d3.json(dataURL).then(d => {
         genreCode[d.genre] = genreCounter
         genreCounter++
       }
-
-    // console.log(genreCode)
-
-
 
     // scale radius to fit on the screen
     var scaledRadius  = radiusScale(+d.popularity*d.popularity*d.popularity/100),
@@ -86,11 +81,6 @@ d3.json(dataURL).then(d => {
 
     return d;
   });
-
-
-  // console.log((d) => d.cluster)
-  // Object.keys(genreCode).forEach(color => {console.log(color, z(color.value))});
-
 
   // append the circles to svg then style
   // add functions for interaction
@@ -212,22 +202,6 @@ d3.json(dataURL).then(d => {
   }
 
   // Populate Legend with keys and colors
-
-  // d3.select("#legend-row1").html("");
-  // d3.select("#legend-row2").html("");
-
-  // var legendSelect = d3.select(".legend-container")
-  // var legend = legendSelect
-  // .data(genreCode)
-  // .selectAll("p")
-  // .enter()
-  // .append("div")
-  // .attr("class", "col-md-3")
-  // .attr("class","legend-text")
-  // .html("<p>test</p>")
-
-
-
 
 var legendRow = d3.select(".legend-container").append("div").attr("class","row legendRow offset-1")
 
