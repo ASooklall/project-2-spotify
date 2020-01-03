@@ -55,6 +55,36 @@ function generateSunburst(selectedYear) {
     
     console.log(dataTree);
 
+    // Organize Function
+  partition = data => {
+    let root = d3.hierarchy(data)
+        .sum(d => d.value)
+        .sort((a, b) => a.value - b.value);
+    return d3.partition()
+        .size([2 * Math.PI, root.height + 1])
+      (root);
+  };
+
+  // Format Attributes
+  color = d3.scaleOrdinal(d3.quantize(d3.interpolateSpectral, dataTree.children.length + 1));
+  console.log(color);
+
+  format = d3.format(",d");
+
+  width = 570;
+
+  radius = width / 6;
+
+  arc = d3.arc()
+    .startAngle(d => d.x0)
+    .endAngle(d => d.x1)
+    .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
+    .padRadius(radius * 1.5)
+    .innerRadius(d => d.y0 * radius)
+    .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
+
+  // d3 = require("d3@5");
+
     let root = partition(dataTree);
 
     root.each(d => d.current = d); 
@@ -72,7 +102,7 @@ function generateSunburst(selectedYear) {
       .selectAll("path")
       .data(root.descendants().slice(1))
       .enter().append("path")
-      .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data); })
+      .attr("fill", d => { while (d.depth > 1) d = d.parent; return color(d.data.name); })
       .attr("fill-opacity", d => arcVisible(d.current) ? (d.children ? 0.6 : 0.4) : 0)
       .attr("d", d => arc(d.current))
       .attr('class', d => d.data.type)
@@ -153,37 +183,6 @@ function generateSunburst(selectedYear) {
 
     return svgSunburst.node();
   });
-
-  // Organize Function
-  partition = data => {
-    let root = d3.hierarchy(data)
-        .sum(d => d.value)
-        .sort((a, b) => a.value - b.value);
-    return d3.partition()
-        .size([2 * Math.PI, root.height + 1])
-      (root);
-  };
-
-  // Format Attributes
-  color = data => {
-    d3.scaleOrdinal(d3.quantize(d3.interpolateRainbow, data.children.length + 1));
-  };
-
-  format = d3.format(",d");
-
-  width = 570;
-
-  radius = width / 6;
-
-  arc = d3.arc()
-    .startAngle(d => d.x0)
-    .endAngle(d => d.x1)
-    .padAngle(d => Math.min((d.x1 - d.x0) / 2, 0.005))
-    .padRadius(radius * 1.5)
-    .innerRadius(d => d.y0 * radius)
-    .outerRadius(d => Math.max(d.y0 * radius, d.y1 * radius - 1));
-
-  // d3 = require("d3@5");
 };
 
 ///////////////////////////////////
