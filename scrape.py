@@ -331,7 +331,7 @@ def run_scrape():
 
 
     #######################################
-    #### Adding Popularity to table ##
+    #### Adding Popularity to table ######
     #####################################
 
     ### helper functions ###
@@ -355,10 +355,33 @@ def run_scrape():
         return dataframe
 
 
-    #### Run on our dataframes
+    #### Run on our dataframes ####
     for df in each_df:
         df = add_popularity_to_df(df)
 
+
+    ###############################
+    #### Fixing all titles #######
+    #############################
+
+    ### helper function ###
+    def grab_correct_title(dataframe):
+        ''' uses id to get the correct title '''
+        token = util.prompt_for_user_token(username, scope, client_id=SPOTIPY_CLIENT_ID,client_secret=SPOTIPY_CLIENT_SECRET,redirect_uri=SPOTIPY_REDIRECT_URI)
+
+        for i, column in dataframe.iterrows():
+            sp = spotipy.Spotify(auth=token)
+            track_id = column['id']
+            result = sp.track(track_id)
+            title = result['name']
+            dataframe.loc[i, 'name'] = title
+
+
+        return dataframe
+
+    #### Run on our dataframes ####
+    for df in each_df:
+        df = grab_correct_title(df)
 
     #########################
     ## save DFs as excel ####
