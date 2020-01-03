@@ -16,6 +16,9 @@
 
 
 <body>
+    <script>
+        window.onSpotifyWebPlaybackSDKReady = () => {};
+    </script>
         <div class="row">
             <div class="col-md-12">
                 <h1 class="title" id="index-title">Spotify Data Visualization</h1>
@@ -67,6 +70,7 @@
 
 
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://sdk.scdn.co/spotify-player.js"></script>
     <script src="{{ url_for('static', filename='js/forcegraph.js') }}"></script>
     <script src="{{ url_for('static', filename='js/sunburst.js') }}"></script>
 
