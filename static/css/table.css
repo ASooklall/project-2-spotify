@@ -1,6 +1,5 @@
 * {
     box-sizing: border-box;
-    /* font-family: Ubuntu, sans-serif; */
   }
 
 .container-fluid {
@@ -28,10 +27,11 @@ tr:nth-child(n) {
     background-color: rgb(32, 37, 49);
 }
 
-
+.footer-txt {
+  margin-top: 10px;
+}
 
 body {
-    /* background-color: #313C53; */
     background-color: #14141d;
     height: 100%;
     padding: 0;
@@ -47,20 +47,53 @@ body {
     position:relative;
 }
 
-.btn {
+#filter-btn {
     position: relative;
     margin-left: 40%;
     margin-top: 10px;
+    margin-bottom: 10px;
     padding: 10px;
     text-align:center;
     align-items: center;
     width: 20%;
     min-width: 100px;
-    /* background-color: rgb(42, 44, 43); */
     background-color: #313C53; 
     color: rgb(255, 255, 255);
     border: 14px solid round;
-    /* border-color: rgb(20, 82, 2); */
+    border-color: #9CFF00;
+    border-radius: 7px;
+}
+
+.btn-footer1 {
+    position: relative;
+    margin-left: 25%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align:center;
+    align-items: center;
+    width: 50%;
+    min-width: 120px;
+    background-color: #313C53; 
+    color: rgb(255, 255, 255);
+    border: 14px solid round;
+    border-color: #9CFF00;
+    border-radius: 7px;
+}
+
+.btn-footer2 {
+    position: relative;
+    margin-left: 10%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+    text-align:center;
+    align-items: center;
+    width: 75%;
+    min-width: 200px;
+    background-color: #313C53; 
+    color: rgb(255, 255, 255);
+    border: 14px solid round;
     border-color: #9CFF00;
     border-radius: 7px;
 }
