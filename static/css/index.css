@@ -7,7 +7,6 @@ body {
     height: 100%;
     padding: 0;
     margin: 0;
-    /* margin-bottom:100px; */
 }
 
 .title {
@@ -20,8 +19,13 @@ body {
     color: floralwhite;
 }
 
+.legend-title {
+    text-align: center;
+    color: #9CFF00;
+}
+
 #index-subtitle-bullet {
-    margin-top: 10%;
+    margin-top: 0%;
 }
 
 div.tooltip { 
@@ -84,10 +88,12 @@ option{
 
 .bullet-container{
     position:relative;
+    margin-top: 10px;
+    padding: 20px 10px;
     width: 90%; 
     min-width:480px; 
-    min-height:600px; 
-    max-height:800px;
+    min-height:400px; 
+    max-height:900px;
     background-color:black;
 }
 
@@ -102,17 +108,39 @@ option{
 .bullet .title { font-size: 14px; font-weight: bold; fill: #ffffff;}
 .bullet .subtitle { fill: #999; } 
 
+.sb-controls {
+    position: relative;
+    padding-top: 10px;
+    font-size: 14.5px;
+    color: #ffffff;
+}
+
+.fg-controls {
+    position: relative;
+    margin-top: 30px;
+    padding-top: 20px;
+    padding: 20px;
+    background-color: #000000;
+    color: #ffffff;
+}
+
+.control-title{
+    color: #9CFF00; 
+    font-size: 16px;
+    padding-top: 4px;
+    padding-left: 10px;
+}
 
 
 a:link, a:visited {
-    color: #9CFF00
+    color: #9CFF00;
 }
 
 .wrapper {
     position: relative;
     min-height: 100%;
     min-width: 100%;
-    padding-bottom: 250px;
+    padding-bottom: 100px;
     overflow: hidden;
   }
 
