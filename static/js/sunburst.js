@@ -126,7 +126,8 @@ function generateSunburst(selectedYear) {
       .attr("dy", "0.35em")
       .attr("fill-opacity", d => +labelVisible(d.current))
       .attr("transform", d => labelTransform(d.current))
-      .text(d => d.data.name);
+      .text(d => d.data.name)
+      .attr('class', 'sunburst-title-text');
 
     let parent = g.append("circle")
       .datum(root)
@@ -467,7 +468,7 @@ function generateBullet(selectedYear) {
       return [
         {
           "title":"Popularity",
-          "subtitle":"play frequency, etc.",
+          "subtitle":"play frequency",
           "ranges":bulletRangeFinder("popularity"),
           "measures":[x.popularity],
           "markers":artistAverage(x.artists, "popularity")
@@ -481,7 +482,7 @@ function generateBullet(selectedYear) {
         },
         {
           "title":"Danceability",
-          "subtitle":"suitability for dancing based on tempo, rhythm stability, beat strength, and overall regularity",
+          "subtitle":"rhythm stability, regularity",
           "ranges":bulletRangeFinder("danceability"),
           "measures":[x.danceability],
           "markers":artistAverage(x.artists, "danceability")
@@ -495,14 +496,14 @@ function generateBullet(selectedYear) {
         },
         {
           "title":"Energy",
-          "subtitle":"perceptual measure of intensity and activity",
+          "subtitle":"level of intensity/activity",
           "ranges":bulletRangeFinder("energy"),
           "measures":[x.energy],
           "markers":artistAverage(x.artists, "energy")
         },
         {
           "title":"Speechiness",
-          "subtitle":"presence of spoken words",
+          "subtitle":"presence of words",
           "ranges":bulletRangeFinder("speechiness"),
           "measures":[x.speechiness],
           "markers":artistAverage(x.artists, "speechiness")

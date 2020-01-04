@@ -70,6 +70,10 @@ option{
     height:400px;
 }
 
+.sunburst-title-text{
+    fill:white;
+}
+
 .bullet-container{
     width: 90%; 
     min-width:480px; 
