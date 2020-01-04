@@ -15,6 +15,7 @@
 ///////////////////////////////////
 var appSelect = d3.select(".force-graph")
 var dataURL = '/top_data'
+
 console.log(dataURL)
 
 // set initial variables
@@ -84,6 +85,10 @@ d3.json(dataURL).then(d => {
 
   // append the circles to svg then style
   // add functions for interaction
+  
+  // import play from "playback.js"
+  
+  
   var circles = svg.append('g')
         .datum(nodes)
       .selectAll('.circle')
@@ -113,10 +118,12 @@ d3.json(dataURL).then(d => {
                 .style("opacity", 0); 
         })
         .on("click", function(d) {
-          console.log(d.id)
+           uri_id = d.id;
+            
+           console.log(uri_id)
         })
         ;
-
+ 
   // create the clustering/collision force simulation
   var simulation = d3.forceSimulation(nodes)
       .velocityDecay(0.2)
