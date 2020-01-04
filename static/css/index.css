@@ -22,6 +22,7 @@ body {
 .legend-title {
     text-align: center;
     color: #9CFF00;
+    padding-top: 10px;
 }
 
 #index-subtitle-bullet {
@@ -110,20 +111,31 @@ option{
 
 .sb-controls {
     position: relative;
-    padding-top: 10px;
+    /* padding-top: 1px; */
+    margin-top: -45px;
     font-size: 14.5px;
     color: #ffffff;
+    opacity: 0.3;
+    transition: 0.3s;
+}
+
+.sb-controls:hover {
+    opacity: 1;
 }
 
 .fg-controls {
     position: relative;
-    margin-top: 30px;
-    padding-top: 20px;
     padding: 20px;
     background-color: #000000;
     color: #ffffff;
+    opacity: 0.3;
+    transition: 0.3s;
+    margin-top: -10px;
 }
 
+.fg-controls:hover {
+    opacity: 1;
+}
 .control-title{
     color: #9CFF00; 
     font-size: 16px;
@@ -131,7 +143,20 @@ option{
     padding-left: 10px;
 }
 
+.instructions {
+    position: relative;
+    display: inline;
+    padding-top: 10px;
+    color: #ffffff;
+    opacity: 1;
+    text-align:center;
+}
 
+#fg-inst {
+    position:relative;
+    margin-top: 10px;
+    padding-top: 10px;
+}
 a:link, a:visited {
     color: #9CFF00;
 }
