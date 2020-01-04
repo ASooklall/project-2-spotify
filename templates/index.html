@@ -27,14 +27,35 @@
             <div class="col-md-12">
                 <h1 class="title" id="index-title">Spotify Data Visualization</h1>
                 <br>
-                <h3 class="sub-title" id="index-subtitle">Songs by Genre</h3>
+                <h3 class="sub-title" id="index-subtitle">Force Visualization - Songs by Genre</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-9">
                 <div class="force-graph">                            
                 </div>
             </div>
+            <div class="col-md-2">
+                <div class="container fg-controls">
+                    <div class="row control-title">
+                        <p>Song Force Simulation</p>
+                    </div>                
+                    <div class="row">
+                        <ul>
+                            <li>Each song is represented by a bubble.</li>
+                            <li>Colors are determined by genre.</li>
+                            <li>Bubble size is indicative of song popularity.</li>
+                            <li>Bubble groups can be dragged around for ease of view.</li>
+                            <li>Hover over a bubble for more song information.</li>
+                            <li>Click a bubble to play the song.</li>
+                            <li>Legend under the force graph contains genre names and colors.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="legend-title">
+            <h4>Legend</h4>
         </div>
         <div class="legend-container">
             <!-- </div> -->
@@ -63,8 +84,36 @@
             </div>
             <div class="col-md-4">
                 <h3 class="sub-title" id="index-subtitle-bullet">Bullet Chart</h3>
-                <div class="container bullet-container" style='width: 90%; min-width:480px; min-height:400px; max-height:800px; padding: 20px 10px;'>
+                <div class="container bullet-container">
                     <div class="bullet-chart">
+                    </div>
+                    <div class="container sb-controls">
+                        <div class="row control-title">
+                            <p class="control-title">Sunburst and Bullet Chart Info</p>
+                        </div>
+                            <ul>
+                                <li>Sunburst shows genres, artists, and songs (in order) by year.</li>
+                                <li>Sunburst year can be changed with the dropdown above the chart.</li>
+                                <li>Sunburst slice sizes are determined by song popularity.</li>
+                                <li>Clicking a sunburst song title will update the bullet chart information with that song.</li>
+                            </ul>
+                        <div class="row control-title">
+                            <p class="control-title">Bullet Chart Legend</p>
+                        </div>
+                            <ul>
+                                <li>Bullet foreground:</li>
+                                    <ul>
+                                        <li>Horizontal green bar shows song's value.</li>
+                                        <li>Vertical green marker shows artist's average value for the year.</li>
+                                    </ul>
+                                <li>Bullet background:</li>
+                                    <ul>
+                                        <li>Leftmost bar shows the min for all songs for the year.</li>
+                                        <li>Middle bar shows the mean for all songs for the year.</li>
+                                        <li>Rightmost bar shows the max for all songs for the year.</li>
+                                    </ul>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 <!-- </div> -->
