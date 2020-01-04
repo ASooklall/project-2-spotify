@@ -20,20 +20,34 @@ Purpose:
 * * These trends could be used by record labels or new upcoming solo artists to show what direction their songs should head towards in 2020/2021 etc.
 * Provide comparisons between artists and songs and allow people to look into similarities between artists they might not normally consider or allow users to see other similar artists they might like.
 
-Tasks:
-•	Load CSV from Kaggle
-•	Webscrape wiki/spotify for artist bio
-•	Scrape spotify for album image for each song
-•	Create init.py file to load data, clean data, and push into a database
-•	Use Flask to load routes for HTML pages.
-o	Index page, dataset page which search function?
-•	Flask server should include loading databases and output JSON based on translated data.
-•	D3/Javascript to create plots and charts being used for the project. 
-o	Interactive Concept Map / Network
-	Order: (Years -> Genre -> Artist -> Album -> Song)
-o	Sunburst chart that shows top songs in genre per year
-o	Searchable data chart
-•	HTML to load the Javascript into a template that the flask app will pull from and load onto routes.
+### Requirements:
+* Dependencies located within requirements.txt
+* A spotify premium account to use init.py
+* A spotify premium account for the song playing option in the application.
+* A spotify authentication token for the scrape (init.py):
+* * https://developer.spotify.com/documentation/web-api/
+* * Instructions:
+* * * Use link to follow instructions to create app, 
+* * * In Dashboard create an app name 
+* * * Use Client ID and Client Secret to make API calls (best if hidden in a config.py for the init.py app)
+* A spotify SDK playback token for the song playback:
+* * https://developer.spotify.com/documentation/web-playback-sdk/quick-start/
+* * Instructions:
+* * * Follow link to grab access token.
+* * * Token only lasts 1 hour, refresh after an hour.
+
+### Instructions: 
+* In your command line, run the following command:
+* * Navigate into the project directory:
+* * pip install requirements.txt
+* If this is your first time running the app, do one of the following:
+* * If you have the spotify_db.sqlite file within static/db then you can just move to the next step.
+* * If you do not have the sqlite database file, you need to run init.py for your primary launch.
+* * * Be sure to add your spotify authentication code into the script before running.
+* Before running the application, you need to include your SDK playback token if you want the app to play songs.
+* * Locations are marked within app.py
+* After fulfilling the above conditions, run "app.py" to launch the flask app.
+
 ### Data sources:
 * Wikipedia
 * * Scraping pages for artist bio and pictures
@@ -43,9 +57,6 @@ o	Searchable data chart
 * * https://www.kaggle.com/nadintamer/top-tracks-of-2017
 * * https://www.kaggle.com/nadintamer/top-spotify-tracks-of-2018
 * * https://www.kaggle.com/leonardopena/top50spotify2019
-<<<<<<< HEAD
 * Web Playback SDK
 * * https://developer.spotify.com/documentation/web-playback-sdk/
 
-=======
->>>>>>> d41f6a94dce046836cd7f79ebf13499f98345b98
