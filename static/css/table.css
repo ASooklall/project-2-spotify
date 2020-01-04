@@ -2,9 +2,11 @@
     box-sizing: border-box;
   }
 
-.container-fluid {
+  .container-fluid {
     width: 90%;
-}
+    margin-bottom: 100px;
+    min-height: 1150px;
+  } 
 
 .table-responsive {
     max-height:550px;
@@ -112,7 +114,7 @@ body {
   .wrapper {
     position: relative;
     min-height: 100%;
-    padding-bottom: 170px;
+    padding-bottom: 180px;
     overflow: auto;
   }
   
@@ -209,6 +211,7 @@ body {
     #table-area td {
       font-size: 1em;
     }
+
   }
   
   @media (max-width: 500px) {
@@ -251,6 +254,14 @@ body {
       text-align: center;
       content: attr(data-th);
     }
-  
+
+  }
+
+  @media (min-width: 600px) {
+    .container-fluid {
+      width: 90%;
+      margin-bottom: 10px;
+      min-height: 600px;
+    } 
   }
   
