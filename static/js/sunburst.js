@@ -531,7 +531,7 @@ function generateBullet(selectedYear) {
 
     var bulletName = d3.select('#index-subtitle-bullet')
     bulletName.html('');
-    bulletName.text(`${bestSong.name} by ${bestSong.artists}`);
+    bulletName.text(`Most Popular Song of the Year: ${bestSong.name} by ${bestSong.artists}`);
 
     var svgBullet = d3.select(".bullet-chart").selectAll("svg")
         .data(bestBullet)
