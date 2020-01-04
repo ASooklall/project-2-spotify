@@ -4,8 +4,8 @@
 
   .container-fluid {
     width: 90%;
-    margin-bottom: 100px;
-    min-height: 1150px;
+    margin-bottom: 300px;
+    min-height: 1550px;
   } 
 
 .table-responsive {
@@ -114,7 +114,7 @@ body {
   .wrapper {
     position: relative;
     min-height: 100%;
-    padding-bottom: 180px;
+    padding-bottom: 0px;
     overflow: auto;
   }
   
@@ -261,7 +261,7 @@ body {
     .container-fluid {
       width: 90%;
       margin-bottom: 10px;
-      min-height: 600px;
+      min-height: 800px;
     } 
   }
   
