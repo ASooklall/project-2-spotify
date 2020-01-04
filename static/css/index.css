@@ -25,6 +25,13 @@ body {
     padding-top: 10px;
 }
 
+.move-my-bubbles {
+    position: absolute;
+    color: white;
+    margin-left: 7%;
+    margin-top: 20%;
+}
+
 #index-subtitle-bullet {
     margin-top: 0%;
 }
@@ -225,3 +232,13 @@ a:link, a:visited {
 .footer-txt {
     margin-top: 10px;
   }
+
+@media (max-width: 750px) {
+    .move-my-bubbles {
+        position: relative;
+        color: white;
+        margin-top: 10%;
+        margin-left: 0%;
+        text-align: center;
+    }
+}
