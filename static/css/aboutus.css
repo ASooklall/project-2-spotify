@@ -10,16 +10,78 @@ body {
 }
 
 a:link, a:visited {
-    color: #9CFF00
+    color: #9CFF00;
 }
 
 .wrapper {
     position: relative;
     min-height: 100%;
-    min-width: 100%;
-    padding-bottom: 250px;
+    /* min-width: 100%; */
+    padding-bottom: 20px;
     overflow: hidden;
   }
+
+  .ak-container{
+      color: #ffffff;
+  }
+
+.title{
+    text-align:center;
+    color: #9CFF00;
+    font-weight: 800;
+
+}
+
+.subtitle{
+    text-align:center;
+    color:#ffffff;
+    padding: 10px;
+}
+
+.name-text {
+    text-align:center;
+    color: #9CFF00;
+    padding: 10px;
+}
+
+.team-container {
+    background-color: rgba(0, 0, 0, 0.747);
+    padding: 20px;
+    width: 50%;
+    margin-top: 20px;
+}
+
+.user-block{
+    border: 1px solid;
+    border-color: black;
+    background-color: rgb(24, 26, 29)
+}
+
+img {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+    border: 10px round;
+    border-radius: 100px;
+}
+.ak-container {
+    margin-top: 30px;
+    background-color:  rgba(0, 0, 0, 0.747);
+    align-content: center;
+    text-align:center;
+}
+.ak-row2 {
+    background-color: rgba(0, 0, 0, 0.747);
+    padding: 5px;
+    border: 1px solid;
+    border-color: black;
+}
+.ak-row1 {
+    background-color: rgb(24, 26, 29);
+    padding: 10px;
+    border: 1px solid;
+    border-color: black;
+}
 
 .footer {
     position: relative;

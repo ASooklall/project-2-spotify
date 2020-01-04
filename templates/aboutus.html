@@ -13,20 +13,99 @@
 </head>
 <body>
     <div class="wrapper">
-        <p> Insert About Us</p>
-        <ul>
-            <li>Andrew</li>
-            <li>Mikey</li>
-            <li>Pratik</li>
-            <li>Zane</li>
-        </ul>
-
-        <h1>Acknowledgements:</h1>
-        <ul>
-            <li> Spotify: https://www.spotify.com/us/</li>
-            <li> Network Map: </li>
-            <li> Sunburst:</li>
-        </ul>
+        <h1 class="title">Spotify Data Visualization: About Us</h1>
+        <div class="container team-container">
+            <h1 class="subtitle">Project Team</h1>
+            <div class="row">
+                <div class="col-md-6 user-block">
+                    <div class="row">
+                        <h4 class="name-text">Andrew Sooklall</h4>
+                    </div>                    
+                    <div class="row">
+                        <a class="btn btn-footer1" href="https://www.github.com" target="_blank" role="button">Github Link</a>
+                    </div>
+                </div>                
+                <div class="col-md-6 user-block">
+                    <div class="row">
+                        <h4 class="name-text">Michael Esteban</h4>
+                    </div>                    
+                    <div class="row">
+                        <a class="btn btn-footer1" href="https://www.github.com" target="_blank" role="button">Github Link</a>
+                    </div>
+                </div>
+            </div>            
+            <div class="row">
+                <div class="col-md-6 user-block">
+                    <div class="row">
+                        <h4 class="name-text">Pratik Pathak</h4>
+                    </div>                    
+                    <div class="row">
+                        <a class="btn btn-footer1" href="https://www.github.com" target="_blank" role="button">Github Link</a>
+                    </div>
+                </div>                
+                <div class="col-md-6 user-block">
+                    <div class="row">
+                        <h4 class="name-text">Zane Lynch</h4>
+                    </div>                    
+                    <div class="row">
+                        <a class="btn btn-footer1" href="https://www.github.com" target="_blank" role="button">Github Link</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container ak-container">
+            <h1 class="subtitle">Acknowledgements</h1 cl>
+            <div class="row ak-row1">
+                <div class="col-md-6">
+                    <h4 class="name-text">Spotify Data Sets:</h4>
+                    <p>We obtained our original data sets from these Kaggle sources before modifying for our use:</p>
+                </div>
+                <div class="col-md-6">
+                    <br>
+                    <ul>
+                        <li>2019 Dataset <a href="https://www.kaggle.com/leonardopena/top50spotify2019" target="_blank">(Click To View)</a></li>
+                        <li>2018 Dataset <a href="https://www.kaggle.com/nadintamer/top-spotify-tracks-of-2018" target="_blank">(Click To View)</a></li>
+                        <li>2017 Dataset <a href="https://www.kaggle.com/nadintamer/top-tracks-of-2017" target="_blank">(Click To View)</a></li>
+                    </ul>
+                </div>
+            </div>           
+            <div class="row ak-row2">
+                <div class="col-md-6">
+                    <h4 class="name-text">Spotify:</h4>
+                    <p>Our data uses spotify songs and API / JS library we used utilize spotify.</p>
+                    <a href="https://www.spotify.com/us/" target="_blank"><img src="https://developer.spotify.com/assets/branding-guidelines/icon4@2x.png" alt="spotify_logo"></a>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="name-text">Spotipy API:</h4>
+                    <p>We cleaned our data by pulling current information from the Spotipy API</p>
+                    <a href="https://spotipy.readthedocs.io/en/latest/" target="_blank">SpotiPy Documentation</a>
+                </div>
+            </div>             
+            <div class="row ak-row1">
+                <div class="col-md-6">
+                    <h4 class="name-text">Force Simulation:</h4>
+                    <p>Our initial visualization is a force simulation modified from an example we found online.</p>
+                    <a href="https://bl.ocks.org/mcgovey/e59b5542b628fab4c356223b3505f0c0" target="_blank">Clustered Interactive Force Layout V4</a>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="name-text">Spotify Web-Player SDKs:</h4>
+                    <p>Spotify Web-Player SDK is the Javascript Library we used as a song player.</p>
+                    <a href="https://developer.spotify.com/documentation/web-playback-sdk/" target="_blank">Spotify Web-Player SDK</a>
+                </div>
+            </div>
+            <div class="row ak-row2">
+                <div class="col-md-6">
+                    <h4 class="name-text">Sunburst Chart:</h4>
+                    <p>Our second visualization is a sunburst chart modified from an example we found online.</p>
+                    <a href="https://observablehq.com/@d3/zoomable-sunburst" target="_blank">Zoomable Sunburst</a>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="name-text">Bullet Chart:</h4>
+                    <p>Our third visualization is a bullet chart modified from an example we found online, with an interactive element that responds to sunburst changes.</p>
+                    <a href="https://bl.ocks.org/mbostock/4061961" target="_blank">Mike Bostock's Bullet Charts</a>
+                </div>
+            </div>            
+        </div>
     </div>
 
     <footer class="footer">
@@ -53,10 +132,10 @@
           </div>
           <div class="footer-text row">
             <div class="col-md-6">
-              <a class="btn btn-footer2" href="https://github.com/ASooklall/project-2-spotify" target="blank" role="button">Spotify Data Visualization Github Repository</a>
+              <a class="btn btn-footer2" href="https://github.com/ASooklall/project-2-spotify" target="_blank" role="button">Spotify Data Visualization Github Repository</a>
             </div>            
             <div class="col-md-6 footer-txt">
-              <p>We claim no rights to the data provided by <a href="https://www.spotify.com/us/" target="blank">Spotify</a> or other IP used in the creation of this script. 
+              <p>We claim no rights to the data provided by <a href="https://www.spotify.com/us/" target="_blank">Spotify</a> or other IP used in the creation of this script. 
                 <br>A full list of Acknowledgements can be found <a href="/aboutus">here.</a></p>
             </div>          
           </div>
