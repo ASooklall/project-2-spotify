@@ -4,12 +4,32 @@
 ///////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////
-/////// Spotify Access Token //////
+/////// Spotify Access TokenToken //////
 ///////////////////////////////////
 
-// var accessToken = ""
+// input Spotify SDK Access Token inside the quotations below
+// remember! token has 1 hour time limit before needing to be refreshed
 
+const accessToken = "BQAK5EsS2q1zYhXzvzcli_MgTPt6lINd9jMYjlAxT33qLfu1KnzZo2P248C3zj5QpfBRznTV_5wBr9h1xc0dmh5wLy8BHPz9-FvP_Z0d5HK6XegEM1zaWFMgwVVzgSJw3wRphq7_u7M3nT_UbBLP8rOnSgLek9D3Fzg";
 
+///////////////////////////////////
+////////// SDK Play Music /////////
+///////////////////////////////////
+
+// function to play song
+function play(device_id, URI) {
+  $.ajax({
+  url: "https://api.spotify.com/v1/me/player/play?device_id=" + device_id,
+  type: "PUT",
+  data: `{"uris": ["spotify:track:${URI}"]}`,
+  beforeSend: function(xhr){xhr.setRequestHeader('Authorization', 'Bearer ' + `${accessToken}` );},
+  success: function(data) {
+   console.log(data)
+  }
+  });
+  }
+
+  
 ///////////////////////////////////
 /////// Interactive Song Map //////
 ///////////////////////////////////
@@ -118,7 +138,43 @@ d3.json(dataURL).then(d => {
                 .style("opacity", 0); 
         })
         .on("click", function(d) {
-           uri_id = d.id;
+           let uri_id = d.id;
+            // function to play song when clicked
+            // const token = accessToken;
+           
+            const player = new Spotify.Player({
+              name: 'Web Playback SDK Quick Start Player',
+              getOAuthToken: cb => { cb(accessToken); }
+            });
+            player.removeListener('ready');
+            
+            // Error handling
+            player.addListener('initialization_error', ({ message }) => { console.error(message); });
+            player.addListener('authentication_error', ({ message }) => { console.error(message); });
+            player.addListener('account_error', ({ message }) => { console.error(message); });
+            player.addListener('playback_error', ({ message }) => { console.error(message); });
+          
+            // Playback status updates
+            player.addListener('player_state_changed', state => { console.log(state); });
+          
+            // Ready
+            player.addListener('ready', ({ device_id }) => {
+              console.log('Ready with Device ID', device_id);
+            });
+          
+            // Not Ready
+            player.addListener('not_ready', ({ device_id }) => {
+              console.log('Device ID has gone offline', device_id);
+            });
+            // Ready
+              player.on('ready', data => {
+                  console.log('Ready with Device ID', data.device_id);
+                  // Play a track using our new device ID
+                  play(data.device_id, uri_id);
+              });
+            // Connect to the player!
+            player.connect();
+          
             
            console.log(uri_id)
         })
@@ -222,36 +278,6 @@ var legendRow = d3.select(".legend-container").append("div").attr("class","row l
   })
 
 });
-
-
-
-
-
-
-///////////////////////////////////
-////////// SDK Play Music /////////
-///////////////////////////////////
-
-console.log("----------------------------")
-console.log("begin SDK Here")
-
-
-
-
-
-
-
-
-
-
-console.log("end app.js here!!")
-console.log("----------------------------")
-
-
-
-
-
-
 
 
 
